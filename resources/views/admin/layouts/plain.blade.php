@@ -37,7 +37,7 @@
                         <div class="login-right-wrap">
                             @if ($errors->any())
                                 @foreach ($errors->all() as $error)
-                                    <x-alerts.danger :error="$error" />
+                                    {{-- <x-alerts.danger :error="$error" /> --}}
                                 @endforeach
                             @endif
                             @yield('content')
