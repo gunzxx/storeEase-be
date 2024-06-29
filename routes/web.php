@@ -11,6 +11,8 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::post('/', [AdminController::class, 'update']);
 
     Route::get('/customer', [CustomerController::class, 'index']);
+    Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
+    Route::post('/customer/{id}/edit', [CustomerController::class, 'update']);
     
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

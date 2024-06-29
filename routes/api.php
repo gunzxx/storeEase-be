@@ -5,6 +5,7 @@ use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
 use App\Http\Controllers\api\product\ProductController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,3 +35,11 @@ Route::prefix('product')->group(function(){
     Route::put('/', [ProductController::class, 'update']);
     Route::delete('/', [ProductController::class, 'delete']);
 });
+
+
+
+
+/**
+ * Route for web only
+ */
+Route::delete('/customer/{id}', [CustomerController::class, 'delete']);

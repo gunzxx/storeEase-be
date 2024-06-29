@@ -21,18 +21,18 @@ class AdminController extends Controller
         if ($request->new_password) {
             $request->validate([
                 'name' => 'required',
-                'email' => 'required',
+                'email' => 'required|email',
                 'new_password' => 'min:8|confirmed',
                 'new_password_confirmation' => 'min:8',
             ]);
 
-            $user = Admin::find(auth()->user()->id);
-            if (!$user) {
+            $admin = Admin::find(auth()->user()->id);
+            if (!$admin) {
                 auth()->logout();
                 return redirect('/login');
             }
 
-            if ($request->email != $user->email) {
+            if ($request->email != $admin->email) {
                 $checkUser = Admin::where(['email' => $request->email])->first();
                 if ($checkUser) {
                     return redirect('/')->withErrors([
@@ -41,7 +41,7 @@ class AdminController extends Controller
                 }
             }
 
-            $user->update([
+            $admin->update([
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => bcrypt($request->new_password),
@@ -54,15 +54,21 @@ class AdminController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'email' => 'required',
+            'email' => 'required|email',
         ]);
 
-        $user = Admin::find(auth()->user()->id);
-        if ($request->name != $user->name && $request->email != $user->email) {
-            $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
-            ]);
+        $admin = Admin::find(auth()->user()->id);
+        if ($request->name != $admin->name || $request->email != $admin->email) {
+            if($request->name != $admin->name){
+                $admin->update([
+                    'name' => $request->name,
+                ]);
+            }
+            if($request->email != $admin->email){
+                $admin->update([
+                    'email' => $request->email,
+                ]);
+            }
 
             return redirect('/')->with([
                 'success' => 'Data berhasil diupdate',
