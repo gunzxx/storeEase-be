@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>Admin StorEase | Dashboard</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -27,11 +27,14 @@
     <link rel="stylesheet" href="/lte/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <link rel="stylesheet" href="/style/admin/table.css">
     <style>
         .logout:hover *{
             color: #fff !important;
         }
     </style>
+
+    @yield('css')
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -75,8 +78,17 @@
                         <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
 
                         <li class="nav-item">
-                            <a href="/customer" class="nav-link">
+                            <a href="/" class="nav-link {{ $page == 'profile' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-user"></i>
+                                <p>
+                                    Profile
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/customer" class="nav-link {{ $page == 'customer' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-users"></i>
                                 <p>
                                     Customer
                                 </p>
@@ -84,7 +96,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/vendor" class="nav-link">
+                            <a href="/vendor" class="nav-link {{ $page == 'vendor' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-warehouse"></i>
                                 <p>
                                     Vendor
@@ -93,7 +105,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/category" class="nav-link">
+                            <a href="/category" class="nav-link {{ $page == 'category' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-boxes"></i>
                                 <p>
                                     Category
@@ -102,7 +114,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/product" class="nav-link">
+                            <a href="/product" class="nav-link {{ $page == 'product' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-box"></i>
                                 <p>
                                     Product
@@ -111,8 +123,8 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/order" class="nav-link">
-                                <i class="nav-icon fas fa-cube"></i>
+                            <a href="/order" class="nav-link {{ $page == 'order' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Order
                                 </p>
@@ -120,7 +132,16 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="/report" class="nav-link">
+                            <a href="/package" class="nav-link {{ $page == 'package' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-cube"></i>
+                                <p>
+                                    Paket
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="/report" class="nav-link {{ $page == 'report' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
                                     Laporan
@@ -242,7 +263,9 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        @yield('content')
+        <div class="content-wrapper">
+            @yield('content')
+        </div>
         <!-- /.content-wrapper -->
 
 

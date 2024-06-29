@@ -1,0 +1,22 @@
+.table-container{
+    padding: 10px;
+}
+
+th:nth-child(1){
+    width: 10px;
+}
+
+th{
+    box-shadow: 0 0 5px rgba(0,0,0,.1);
+}
+
+.action-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.action-container i{
+    cursor: pointer;
+}

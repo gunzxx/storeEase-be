@@ -52,7 +52,7 @@
 }
 
 .form-container form input{
-    margin: 30px 0;
+    margin: 10px 0;
     transition: 0.3s;
     color: var(--c2);
 }

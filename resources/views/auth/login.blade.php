@@ -16,6 +16,9 @@
         <form action="" method="POST">
             @csrf
             <h1>Harap login terlebih dahulu</h1>
+            @error('wrong')
+                <span style="color: rgb(255, 98, 98);">{{ $message }}</span>
+            @enderror
             <input type="text" name="email" id="email">
             <input type="password" name="password" id="password">
             <button>Login</button>
