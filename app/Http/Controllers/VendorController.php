@@ -7,28 +7,34 @@ use Illuminate\Http\Request;
 
 class VendorController extends Controller
 {
-    public function index(){
+    public function index()
+    {
         $vendors = Vendor::all();
         return view('vendor.index', [
             'title' => 'Vendor',
             'page' => 'vendor',
+            'subpage1' => 'list',
             'vendors' => $vendors,
         ]);
     }
-    
+
     public function edit($vendorId)
     {
         $vendor = Vendor::find($vendorId);
         if (!$vendor) {
-            return redirect('/vendor');
+            return redirect('/vendor')->withErrors([
+                'data' => 'data tidak ditemukan',
+            ]);
         }
 
         return view('vendor.edit', [
             'title' => 'Edit Vendor',
             'page' => 'vendor',
+            'subpage1' => 'list',
             'vendor' => $vendor,
         ]);
     }
+    
     public function update($vendorId, Request $request)
     {
         if ($request->new_password) {
@@ -40,17 +46,19 @@ class VendorController extends Controller
                 'new_password_confirmation' => 'min:8',
             ]);
 
-            $vendor = Vendor::find(auth()->user()->id);
+            $vendor = Vendor::find($vendorId);
             if (!$vendor) {
-                return redirect('/vendor');
+                return redirect('/vendor')->withErrors([
+                    'data' => 'data tidak ditemukan',
+                ]);
             }
 
             if ($request->email != $vendor->email) {
                 $checkUser = Vendor::where(['email' => $request->email])->first();
                 if ($checkUser) {
-                    return redirect('/vendor')->withErrors([
+                    return redirect()->back()->withErrors([
                         'email' => 'Email sudah digunakan',
-                    ]);
+                    ])->withInput();
                 }
             }
 
@@ -74,7 +82,9 @@ class VendorController extends Controller
 
         $vendor = Vendor::find($vendorId);
         if (!$vendor) {
-            return redirect('/vendor');
+            return redirect('/vendor')->withErrors([
+                'data' => 'data tidak ditemukan',
+            ]);
         }
 
         if ($request->name != $vendor->name || $request->email != $vendor->email) {
@@ -86,9 +96,9 @@ class VendorController extends Controller
             if ($request->email != $vendor->email) {
                 $checkUser = Vendor::where(['email' => $request->email])->first();
                 if ($checkUser) {
-                    return redirect('/vendor')->withErrors([
+                    return redirect()->back()->withErrors([
                         'email' => 'Email sudah digunakan',
-                    ]);
+                    ])->withInput();
                 }
 
                 $vendor->update([
@@ -103,19 +113,19 @@ class VendorController extends Controller
 
         return redirect('/vendor');
     }
-    
+
     public function delete($vendorId)
     {
         $vendor = Vendor::find($vendorId);
         if (!$vendor) {
             return response()->json([
-                'message' => 'vendor tidak ditemukan',
+                'message' => 'data tidak ditemukan',
             ], 404);
         }
-        
+
         $vendor->delete();
         return response()->json([
-            'message' => 'vendor berhasil dihapus',
+            'message' => 'data berhasil dihapus',
         ]);
     }
 }

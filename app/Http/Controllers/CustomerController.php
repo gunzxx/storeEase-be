@@ -21,7 +21,9 @@ class CustomerController extends Controller
     {
         $customer = Customer::find($customerId);
         if (!$customer) {
-            return redirect('/customer');
+            return redirect('/customer')->withErrors([
+                'data' => 'data tidak ditemukan',
+            ]);
         }
 
         return view('customer.edit', [
@@ -42,17 +44,19 @@ class CustomerController extends Controller
                 'new_password_confirmation' => 'min:8',
             ]);
 
-            $customer = Customer::find(auth()->user()->id);
+            $customer = Customer::find($customerId);
             if (!$customer) {
-                return redirect('/customer');
+                return redirect('/customer')->withErrors([
+                    'data' => 'data tidak ditemukan',
+                ]);
             }
             
             if ($request->email != $customer->email) {
                 $checkUser = Customer::where(['email' => $request->email])->first();
                 if ($checkUser) {
-                    return redirect('/customer')->withErrors([
+                    return redirect()->back()->withErrors([
                         'email' => 'Email sudah digunakan',
-                    ]);
+                    ])->withInput();
                 }
             }
 
@@ -76,7 +80,9 @@ class CustomerController extends Controller
 
         $customer = Customer::find($customerId);
         if (!$customer) {
-            return redirect('/customer');
+            return redirect('/customer')->withErrors([
+                'data' => 'data tidak ditemukan',
+            ]);
         }
 
         if ($request->name != $customer->name || $request->email != $customer->email) {
@@ -88,9 +94,9 @@ class CustomerController extends Controller
             if ($request->email != $customer->email) {
                 $checkUser = Customer::where(['email' => $request->email])->first();
                 if ($checkUser) {
-                    return redirect('/customer')->withErrors([
+                    return redirect()->back()->withErrors([
                         'email' => 'Email sudah digunakan',
-                    ]);
+                    ])->withInput();
                 }
                 $customer->update([
                     'email' => $request->email,
@@ -110,13 +116,13 @@ class CustomerController extends Controller
         $customer = Customer::find($customerId);
         if (!$customer) {
             return response()->json([
-                'message' => 'customer tidak ditemukan',
+                'message' => 'data tidak ditemukan',
             ], 404);
         }
         
         $customer->delete();
         return response()->json([
-            'message' => 'customer berhasil dihapus',
+            'message' => 'data berhasil dihapus',
         ]);
     }
 }

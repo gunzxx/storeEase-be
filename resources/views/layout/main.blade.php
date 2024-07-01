@@ -29,7 +29,7 @@
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="/style/admin/table.css">
     <style>
-        .logout:hover *{
+        .logout:hover * {
             color: #fff !important;
         }
     </style>
@@ -38,6 +38,12 @@
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
+    <?php
+    if (!isset($subpage1)) {
+        $subpage1 = '';
+    }
+    ?>
+
     <div class="wrapper">
         <!-- Navbar -->
         <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -95,7 +101,40 @@
                             </a>
                         </li>
 
-                        <li class="nav-item">
+                        <li class="nav-item has-treeview {{ $page == 'vendor' ? 'menu-open' : '' }}">
+                            <a href="" class="nav-link  {{ $page == 'vendor' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-warehouse"></i>
+                                <p>
+                                    Vendor
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/vendor" class="nav-link {{ $subpage1 == 'list' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-building"></i>
+                                        <p>Vendor List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/product" class="nav-link {{ $subpage1 == 'product' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>Product</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/category" class="nav-link {{ $subpage1 == 'category' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-boxes"></i>
+                                        <p>Category</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {{-- <li class="nav-item">
                             <a href="/vendor" class="nav-link {{ $page == 'vendor' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-warehouse"></i>
                                 <p>
@@ -120,7 +159,7 @@
                                     Product
                                 </p>
                             </a>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
                             <a href="/order" class="nav-link {{ $page == 'order' ? 'active' : '' }}">

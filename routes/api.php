@@ -5,6 +5,7 @@ use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
 use App\Http\Controllers\api\product\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -45,3 +46,5 @@ Route::prefix('product')->group(function(){
  */
 Route::delete('/customer/{id}', [CustomerController::class, 'delete']);
 Route::delete('/vendor/{id}', [VendorController::class, 'delete']);
+Route::delete('/category/{id}', [CategoryController::class, 'delete']);
+Route::delete('/product/{id}', [App\Http\Controllers\ProductController::class, 'delete']);

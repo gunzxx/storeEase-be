@@ -14,7 +14,7 @@
         <div class="form-group">
             <label for="name">Name</label>
             <div class="form-input">
-                <input name="name" type="text" id="name" placeholder="Name" value="{{ $customer->name }}">
+                <input name="name" type="text" id="name" placeholder="Name" value="{{ old('name', $customer->name) }}">
                 @error('name')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <div class="form-input">
-                <input name="email" type="email" id="email" placeholder="Email" value="{{ $customer->email }}">
+                <input name="email" type="email" id="email" placeholder="Email" value="{{ old('email', $customer->email) }}">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -32,8 +32,8 @@
         <div class="form-group">
             <label for="phone">Phone</label>
             <div class="form-input">
-                <input name="phone" type="text" id="phone" placeholder="phone" value="{{ $customer->phone }}">
-                @error('email')
+                <input name="phone" type="text" id="phone" placeholder="phone" value="{{ old('phone', $customer->phone) }}">
+                @error('phone')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
             </div>

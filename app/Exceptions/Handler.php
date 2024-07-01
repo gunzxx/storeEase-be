@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 use Throwable;
 
@@ -34,9 +35,31 @@ class Handler extends ExceptionHandler
         if ($exception instanceof MethodNotAllowedHttpException) {
             return response()->json([
                 'error' => 'Method Not Allowed',
-                'message' => " HTTP method:".$request->method()." untuk route ini tidak diizinkan",
+                'message' => " HTTP method:" . $request->method() . " untuk route ini tidak diizinkan",
                 'status' => 405
             ], 405);
+        }
+
+        // Handle HTTP Exceptions
+        if ($exception instanceof HttpException) {
+            $statusCode = $exception->getStatusCode();
+            return response()->json([
+                'message' => 'Error occurred',
+                'status_code' => $statusCode
+            ], $statusCode);
+        }
+
+        // Handle other exceptions
+        if ($this->isHttpException($exception)) {
+            return $this->renderHttpException($exception);
+        } else {
+            // Log exception
+            logger()->error($exception);
+            // Generic error message and 500 status code
+            return response()->json([
+                'message' => $exception->getMessage(),
+                'status_code' => 500
+            ], 500);
         }
 
         return parent::render($request, $exception);

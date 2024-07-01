@@ -14,7 +14,7 @@
         <div class="form-group">
             <label for="name">Name</label>
             <div class="form-input">
-                <input name="name" type="text" id="name" placeholder="Name" value="{{ $vendor->name }}">
+                <input required autofocus name="name" type="text" id="name" placeholder="Name" value="{{ old('name', $vendor->name) }}">
                 @error('name')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label for="email">Email</label>
             <div class="form-input">
-                <input name="email" type="email" id="email" placeholder="Email" value="{{ $vendor->email }}">
+                <input required name="email" type="email" id="email" placeholder="Email" value="{{ old('email', $vendor->email) }}">
                 @error('email')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -32,8 +32,8 @@
         <div class="form-group">
             <label for="phone">Phone</label>
             <div class="form-input">
-                <input name="phone" type="text" id="phone" placeholder="phone" value="{{ $vendor->phone }}">
-                @error('email')
+                <input required name="phone" type="text" id="phone" placeholder="phone" value="{{ old('phone', $vendor->phone) }}">
+                @error('phone')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
             </div>

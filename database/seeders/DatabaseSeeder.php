@@ -5,7 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Admin;
+use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 
@@ -48,6 +50,28 @@ class DatabaseSeeder extends Seeder
             'email' => 'vendor2@storease.com',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
+        ]);
+
+        Category::create([
+            'name' => 'Category 1',
+        ]);
+
+        Category::create([
+            'name' => 'Category 2',
+        ]);
+
+        Product::create([
+            'name' => 'Product 1',
+            'price' => '10000',
+            'category_id' => '1',
+            'vendor_id' => '1',
+        ]);
+
+        Product::create([
+            'name' => 'Product 2',
+            'price' => '20000',
+            'category_id' => '2',
+            'vendor_id' => '2',
         ]);
     }
 }

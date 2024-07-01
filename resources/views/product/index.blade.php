@@ -5,7 +5,7 @@
         <h1>{{ $title ?? 'Admin Dashboard' }}</h1>
     </div>
 
-    @if ($errors->any())
+    @if($errors->any())
         @foreach ($errors->all() as $error)
             <div class="alert-container">
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -35,33 +35,37 @@
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Name</th>
-                    <th scope="col">Email</th>
-                    <th scope="col">Phone</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Category</th>
+                    <th scope="col">Vendor</th>
                     <th class="action-col" scope="col">Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($vendors as $key => $vendor)
+                @foreach ($products as $key => $product)
                     <tr>
                         <td>
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $vendor->name }}</p>
+                            <p>{{ $product->name }}</p>
                         </td>
                         <td>
-                            <p>{{ $vendor->email }}</p>
+                            <p>Rp. {{ number_format($product->price, 0, 3, '.') }}</p>
                         </td>
                         <td>
-                            <p>{{ $vendor->phone }}</p>
+                            <p>{{ $product->category->name }}</p>
+                        </td>
+                        <td>
+                            <p>{{ $product->vendor->name }}</p>
                         </td>
                         <td>
                             <div class="action-container">
-                                <a href="/vendor/{{ $vendor->id }}/edit">
+                                <a href="/product/{{ $product->id }}/edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a class="delete-button">
-                                    <i data-id="{{ $vendor->id }}" class="fas fa-trash"
+                                    <i data-id="{{ $product->id }}" class="fas fa-trash"
                                         style="color: rgb(255, 98, 98);"></i>
                                 </a>
                             </div>
@@ -80,13 +84,13 @@
             $('.delete-button').click((e) => {
                 Swal.fire({
                     title: 'Hapus',
-                    text: 'Hapus data vendor?',
+                    text: 'Hapus product?',
                     icon: 'question',
                     showCancelButton: true,
                 }).then(answer => {
                     if (answer.isConfirmed) {
                         const id = e.target.getAttribute('data-id');
-                        fetch(`/api/vendor/${id}`, {
+                        fetch(`/api/product/${id}`, {
                                 method: 'DELETE',
                             })
                             .then((res) => {
