@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -16,11 +17,11 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
     Route::post('/customer/{id}/edit', [CustomerController::class, 'update']);
-    
+
     Route::get('/vendor', [VendorController::class, 'index']);
     Route::get('/vendor/{id}/edit', [VendorController::class, 'edit']);
     Route::post('/vendor/{id}/edit', [VendorController::class, 'update']);
-    
+
     Route::get('/category', [CategoryController::class, 'index']);
     Route::get('/category/create', [CategoryController::class, 'create']);
     Route::post('/category/create', [CategoryController::class, 'store']);
@@ -30,7 +31,9 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::get('/product', [ProductController::class, 'index']);
     Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
     Route::post('/product/{id}/edit', [ProductController::class, 'update']);
-    
+
+    Route::get('/order', [OrderController::class, 'index']);
+
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();
         return redirect('/login');

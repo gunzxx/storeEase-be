@@ -3,8 +3,11 @@
 namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Response;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -40,26 +43,24 @@ class Handler extends ExceptionHandler
             ], 405);
         }
 
-        // Handle HTTP Exceptions
-        if ($exception instanceof HttpException) {
-            $statusCode = $exception->getStatusCode();
-            return response()->json([
-                'message' => 'Error occurred',
-                'status_code' => $statusCode
-            ], $statusCode);
-        }
+        if ($request->is('api/*')) {
+            if ($exception instanceof ValidationException) {
+                return response()->json([
+                    'message' => 'Validation Error',
+                    'errors' => $exception->errors()
+                ], Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
 
-        // Handle other exceptions
-        if ($this->isHttpException($exception)) {
-            return $this->renderHttpException($exception);
-        } else {
-            // Log exception
-            logger()->error($exception);
-            // Generic error message and 500 status code
+            if ($exception instanceof NotFoundHttpException) {
+                return response()->json([
+                    'message' => 'Resource Not Found'
+                ], Response::HTTP_NOT_FOUND);
+            }
+
+            // Handle other exceptions
             return response()->json([
-                'message' => $exception->getMessage(),
-                'status_code' => 500
-            ], 500);
+                'message' => 'Internal Server Error'
+            ], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
         return parent::render($request, $exception);
