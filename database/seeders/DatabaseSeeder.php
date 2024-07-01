@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Customer;
+use App\Models\Vendor;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -31,6 +32,20 @@ class DatabaseSeeder extends Seeder
         Customer::create([
             'name' => 'Customer 2',
             'email' => 'customer2@storease.com',
+            'password' => bcrypt('password'),
+            'phone' => '+628123456789',
+        ]);
+        
+        Vendor::create([
+            'name' => 'Vendor 1',
+            'email' => 'vendor1@storease.com',
+            'password' => bcrypt('password'),
+            'phone' => '+628123456789',
+        ]);
+
+        Vendor::create([
+            'name' => 'Vendor 2',
+            'email' => 'vendor2@storease.com',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
         ]);

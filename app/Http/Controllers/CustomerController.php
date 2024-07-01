@@ -46,11 +46,11 @@ class CustomerController extends Controller
             if (!$customer) {
                 return redirect('/customer');
             }
-
+            
             if ($request->email != $customer->email) {
                 $checkUser = Customer::where(['email' => $request->email])->first();
                 if ($checkUser) {
-                    return redirect('/')->withErrors([
+                    return redirect('/customer')->withErrors([
                         'email' => 'Email sudah digunakan',
                     ]);
                 }
@@ -86,6 +86,12 @@ class CustomerController extends Controller
                 ]);
             }
             if ($request->email != $customer->email) {
+                $checkUser = Customer::where(['email' => $request->email])->first();
+                if ($checkUser) {
+                    return redirect('/customer')->withErrors([
+                        'email' => 'Email sudah digunakan',
+                    ]);
+                }
                 $customer->update([
                     'email' => $request->email,
                 ]);

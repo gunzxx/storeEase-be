@@ -3,6 +3,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -13,6 +14,10 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::get('/customer', [CustomerController::class, 'index']);
     Route::get('/customer/{id}/edit', [CustomerController::class, 'edit']);
     Route::post('/customer/{id}/edit', [CustomerController::class, 'update']);
+    
+    Route::get('/vendor', [VendorController::class, 'index']);
+    Route::get('/vendor/{id}/edit', [VendorController::class, 'edit']);
+    Route::post('/vendor/{id}/edit', [VendorController::class, 'update']);
     
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

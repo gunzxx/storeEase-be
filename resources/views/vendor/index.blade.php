@@ -39,27 +39,27 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($customers as $key => $customer)
+                @foreach ($vendors as $key => $vendor)
                     <tr>
                         <td>
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $customer->name }}</p>
+                            <p>{{ $vendor->name }}</p>
                         </td>
                         <td>
-                            <p>{{ $customer->email }}</p>
+                            <p>{{ $vendor->email }}</p>
                         </td>
                         <td>
-                            <p>{{ $customer->phone }}</p>
+                            <p>{{ $vendor->phone }}</p>
                         </td>
                         <td>
                             <div class="action-container">
-                                <a href="/customer/{{ $customer->id }}/edit">
+                                <a href="/vendor/{{ $vendor->id }}/edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a class="delete-button">
-                                    <i data-id="{{ $customer->id }}" class="fas fa-trash"
+                                    <i data-id="{{ $vendor->id }}" class="fas fa-trash"
                                         style="color: rgb(255, 98, 98);"></i>
                                 </a>
                             </div>
@@ -75,43 +75,47 @@
 @section('js')
     <script>
         $('.delete-button').click((e) => {
-            Swal.fire({
-                title: 'Hapus',
-                text: 'Hapus data customer?',
-                icon: 'question',
-                showCancelButton: true,
-            }).then(answer => {
-                if (answer.isConfirmed) {
-                    const id = e.target.getAttribute('data-id');
-                    fetch(`/api/customer/${id}`, {
-                            method: 'DELETE',
-                        })
-                        .then((res) => {
-                            if (!res.ok) {
-                                return res.json().then(errData => {
-                                    throw new Error(`Error: ${errData.message}`);
-                                });
-                            }
-                            return res.json()
-                        })
-                        .then((data) => {
-                            Swal.fire({
-                                title: 'Berhasil',
-                                text: data.message,
-                                icon: 'success',
-                            }).then(() => {
-                                location.reload();
+            $('.delete-button').click((e) => {
+                Swal.fire({
+                    title: 'Hapus',
+                    text: 'Hapus data vendor?',
+                    icon: 'question',
+                    showCancelButton: true,
+                }).then(answer => {
+                    if (answer.isConfirmed) {
+                        const id = e.target.getAttribute('data-id');
+                        fetch(`/api/vendor/${id}`, {
+                                method: 'DELETE',
                             })
-                        })
-                        .catch(err => {
-                            console.log(err.message);
-                            Swal.fire({
-                                title: 'Gagal',
-                                text: err.message,
-                                icon: 'error',
+                            .then((res) => {
+                                if (!res.ok) {
+                                    return res.json().then(errData => {
+                                        throw new Error(`Error: ${errData.message}`);
+                                    });
+                                }
+                                return res.json()
+                            })
+                            .then((data) => {
+                                Swal.fire({
+                                    title: 'Berhasil',
+                                    text: data.message,
+                                    icon: 'success',
+                                }).then(() => {
+                                    location.reload();
+                                });
+                            })
+                            .catch(err => {
+                                console.log(err.message);
+                                Swal.fire({
+                                    title: 'Gagal',
+                                    text: err.message,
+                                    icon: 'error',
+                                }).then(() => {
+                                    location.reload();
+                                });
                             });
-                        });
-                }
+                    }
+                });
             })
         });
     </script>
