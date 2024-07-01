@@ -1,3 +1,10 @@
+.nav-link.active{
+    background: #ebecec !important;
+}
+.nav-link.active *{
+    color: black !important;
+}
+
 .create-btn-container{
     width: 100%;
     padding: 10px;
