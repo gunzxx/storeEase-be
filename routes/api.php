@@ -50,4 +50,5 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('/category/{id}', [CategoryController::class, 'delete']);
     Route::delete('/product/{id}', [App\Http\Controllers\ProductController::class, 'delete']);
     Route::delete('/order/{id}', [App\Http\Controllers\OrderController::class, 'delete']);
+    Route::delete('/package/{id}', [App\Http\Controllers\PackageController::class, 'delete']);
 });

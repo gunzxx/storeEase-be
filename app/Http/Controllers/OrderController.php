@@ -15,7 +15,6 @@ class OrderController extends Controller
         return view('order.index', [
             'title' => 'Order',
             'page' => 'order',
-            'subpage1' => 'list',
             'orders' => $orders,
         ]);
     }
@@ -32,7 +31,6 @@ class OrderController extends Controller
         return view('order.detail', [
             'title' => 'Order Detail',
             'page' => 'order',
-            'subpage1' => 'list',
             'orders' => $orders,
         ]);
     }

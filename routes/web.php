@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,10 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     
     Route::get('/order', [OrderController::class, 'index']);
     Route::get('/order/{id}/detail', [OrderController::class, 'detail']);
+    
+    Route::get('/package', [PackageController::class, 'index']);
+    Route::get('/package/{id}/edit', [PackageController::class, 'edit']);
+    Route::post('/package/{id}/edit', [PackageController::class, 'update']);
 
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();
