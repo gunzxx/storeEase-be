@@ -54,3 +54,15 @@ th{
 th.action-col{
     width: 10%;
 }
+
+.btn-back{
+    width: min-content;
+    padding: 10px 20px;
+    background: rgb(41, 176, 221);
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .1);
+}
+.btn-back *{
+    color: white;
+}

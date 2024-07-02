@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminMiddleware
+class AdminWebMiddleware
 {
     /**
      * Handle an incoming request.
@@ -17,12 +17,10 @@ class AdminMiddleware
     public function handle(Request $request, Closure $next): Response
     {
         // Asumsikan bahwa Anda memiliki guard 'adminweb' untuk otentikasi admin
-        if (Auth::guard('admin')->check()) {
+        if (Auth::guard('adminweb')->check()) {
             return $next($request);
         }
 
-        return response()->json([
-            'message' => 'Unauthenticated',
-        ], 401);
+        return redirect('/login');
     }
 }

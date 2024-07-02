@@ -7,9 +7,12 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use App\Models\Category;
 use App\Models\Customer;
+use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\Vendor;
 use Illuminate\Database\Seeder;
+use Ramsey\Uuid\Uuid;
 
 class DatabaseSeeder extends Seeder
 {
@@ -72,6 +75,38 @@ class DatabaseSeeder extends Seeder
             'price' => '20000',
             'category_id' => '2',
             'vendor_id' => '2',
+        ]);
+
+        Order::create([
+            'uuid' => Uuid::uuid4(),
+            'vendor_id' => 1,
+            'customer_id' => 1,
+            'total_price' => 100000,
+        ]);
+
+        Order::create([
+            'uuid' => Uuid::uuid4(),
+            'vendor_id' => 2,
+            'customer_id' => 2,
+            'total_price' => 80000,
+        ]);
+
+        OrderDetail::create([
+            'quantity' => 4,
+            'product_id' => 1,
+            'order_id' => 1,
+        ]);
+
+        OrderDetail::create([
+            'quantity' => 3,
+            'product_id' => 2,
+            'order_id' => 1,
+        ]);
+
+        OrderDetail::create([
+            'quantity' => 4,
+            'product_id' => 2,
+            'order_id' => 2,
         ]);
     }
 }

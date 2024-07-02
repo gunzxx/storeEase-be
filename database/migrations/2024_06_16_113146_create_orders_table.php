@@ -13,11 +13,12 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            $table->date('order_date');
-            $table->decimal('total_price');
-            $table->enum('status', ['not_paid', 'paid', 'not_sent', 'sent','done']);
-            $table->foreignId('vendor_id')->references('id')->on('vendors');
-            $table->foreignId('customer_id')->references('id')->on('customers');
+            $table->string('uuid')->uniqid();
+            $table->date('order_date')->default(now());
+            $table->decimal('total_price', 15, 2)->default(0);
+            $table->enum('status', ['not_paid', 'paid', 'not_sent', 'sent','done'])->default('not_paid');
+            $table->foreignId('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->foreignId('customer_id')->references('id')->on('customers')->onDelete('cascade');
             $table->timestamps();
         });
     }

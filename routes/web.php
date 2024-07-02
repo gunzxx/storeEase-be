@@ -31,8 +31,9 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::get('/product', [ProductController::class, 'index']);
     Route::get('/product/{id}/edit', [ProductController::class, 'edit']);
     Route::post('/product/{id}/edit', [ProductController::class, 'update']);
-
+    
     Route::get('/order', [OrderController::class, 'index']);
+    Route::get('/order/{id}/detail', [OrderController::class, 'detail']);
 
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

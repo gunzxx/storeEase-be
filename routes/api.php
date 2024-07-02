@@ -44,7 +44,10 @@ Route::prefix('product')->group(function(){
 /**
  * Route for web only
  */
-Route::delete('/customer/{id}', [CustomerController::class, 'delete']);
-Route::delete('/vendor/{id}', [VendorController::class, 'delete']);
-Route::delete('/category/{id}', [CategoryController::class, 'delete']);
-Route::delete('/product/{id}', [App\Http\Controllers\ProductController::class, 'delete']);
+Route::middleware(['admin'])->group(function(){
+    Route::delete('/customer/{id}', [CustomerController::class, 'delete']);
+    Route::delete('/vendor/{id}', [VendorController::class, 'delete']);
+    Route::delete('/category/{id}', [CategoryController::class, 'delete']);
+    Route::delete('/product/{id}', [App\Http\Controllers\ProductController::class, 'delete']);
+    Route::delete('/order/{id}', [App\Http\Controllers\OrderController::class, 'delete']);
+});

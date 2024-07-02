@@ -34,11 +34,11 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Category</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Harga</th>
+                    <th scope="col">Kategori</th>
                     <th scope="col">Vendor</th>
-                    <th class="action-col" scope="col">Action</th>
+                    <th class="action-col" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -90,8 +90,12 @@
                 }).then(answer => {
                     if (answer.isConfirmed) {
                         const id = e.target.getAttribute('data-id');
+                        const token = getCookie('jwt');
                         fetch(`/api/product/${id}`, {
                                 method: 'DELETE',
+                                headers: {
+                                    'Authorization': `Bearer ${token}`,
+                                },
                             })
                             .then((res) => {
                                 if (!res.ok) {

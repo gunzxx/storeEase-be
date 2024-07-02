@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->decimal('price', 15, 2);
-            $table->foreignId('category_id')->references('id')->on('categories');
-            $table->foreignId('vendor_id')->references('id')->on('vendors');
+            $table->foreignId('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -2,6 +2,14 @@
 
 @section('css')
     <link rel="stylesheet" href="/style/admin/form.css">
+
+    @session('token')
+        <input type="hidden" id="jwttoken" value="{{ session('token') }}">
+        <script>
+            const token = document.getElementById('jwttoken').value;
+            document.cookie = `jwt=${token}`;
+        </script>
+    @endsession
 @endsection
 
 @section('content')
@@ -19,11 +27,11 @@
             </div>
         </div>
     @endsession
-    
+
     <form method="POST" action="" class="form-container">
         @csrf
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Nama</label>
             <div class="form-input">
                 <input name="name" type="text" id="name" placeholder="Name" value="{{ $admin->name }}">
                 @error('name')

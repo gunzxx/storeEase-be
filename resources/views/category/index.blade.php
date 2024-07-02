@@ -40,9 +40,9 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Total Product</th>
-                    <th class="action-col" scope="col">Action</th>
+                    <th scope="col">Nama</th>
+                    <th scope="col">Total Produk</th>
+                    <th class="action-col" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -79,48 +79,50 @@
 @section('js')
     <script>
         $('.delete-button').click((e) => {
-            $('.delete-button').click((e) => {
-                Swal.fire({
-                    title: 'Hapus',
-                    text: 'Hapus kategori?',
-                    icon: 'question',
-                    showCancelButton: true,
-                }).then(answer => {
-                    if (answer.isConfirmed) {
-                        const id = e.target.getAttribute('data-id');
-                        fetch(`/api/category/${id}`, {
-                                method: 'DELETE',
-                            })
-                            .then((res) => {
-                                if (!res.ok) {
-                                    return res.json().then(errData => {
-                                        throw new Error(`Error: ${errData.message}`);
-                                    });
-                                }
-                                return res.json()
-                            })
-                            .then((data) => {
-                                Swal.fire({
-                                    title: 'Berhasil',
-                                    text: data.message,
-                                    icon: 'success',
-                                }).then(() => {
-                                    location.reload();
+            Swal.fire({
+                title: 'Hapus',
+                text: 'Hapus kategori?',
+                icon: 'question',
+                showCancelButton: true,
+            }).then(answer => {
+                if (answer.isConfirmed) {
+                    const id = e.target.getAttribute('data-id');
+                    const token = getCookie('jwt');
+                    fetch(`/api/category/${id}`, {
+                            method: 'DELETE',
+                            headers: {
+                                'Authorization': `Bearer ${token}`,
+                            },
+                        })
+                        .then((res) => {
+                            if (!res.ok) {
+                                return res.json().then(errData => {
+                                    throw new Error(`Error: ${errData.message}`);
                                 });
-                            })
-                            .catch(err => {
-                                console.log(err.message);
-                                Swal.fire({
-                                    title: 'Gagal',
-                                    text: err.message,
-                                    icon: 'error',
-                                }).then(() => {
-                                    location.reload();
-                                });
+                            }
+                            return res.json()
+                        })
+                        .then((data) => {
+                            Swal.fire({
+                                title: 'Berhasil',
+                                text: data.message,
+                                icon: 'success',
+                            }).then(() => {
+                                location.reload();
                             });
-                    }
-                });
-            })
+                        })
+                        .catch(err => {
+                            console.log(err.message);
+                            Swal.fire({
+                                title: 'Gagal',
+                                text: err.message,
+                                icon: 'error',
+                            }).then(() => {
+                                location.reload();
+                            });
+                        });
+                }
+            });
         });
     </script>
 @endsection

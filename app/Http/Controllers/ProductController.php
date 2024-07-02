@@ -69,7 +69,7 @@ class ProductController extends Controller
             'success' => 'Data berhasil diupdate',
         ]);;
     }
-    
+
     public function delete($productId)
     {
         $product = Product::find($productId);
