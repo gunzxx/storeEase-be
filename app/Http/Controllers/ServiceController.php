@@ -26,7 +26,7 @@ class ServiceController extends Controller
         $vendors = Vendor::all();
 
         return view('service.create', [
-            'title' => 'Edit Category',
+            'title' => 'Create Category',
             'page' => 'vendor',
             'subpage1' => 'vendor-service',
             'categories' => $categories,
@@ -38,6 +38,7 @@ class ServiceController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
+            'description' => 'required',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'vendor_id' => 'required',
@@ -46,6 +47,7 @@ class ServiceController extends Controller
         try {
             Service::create([
                 'name' => $request->name,
+                'description' => $request->description,
                 'price' => $request->price,
                 'service_category_id' => $request->category_id,
                 'vendor_id' => $request->vendor_id,
@@ -93,6 +95,7 @@ class ServiceController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
+            'description' => 'required|min:3',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'vendor_id' => 'required',
@@ -107,6 +110,7 @@ class ServiceController extends Controller
 
         $product->update([
             'name' => $request->name,
+            'description' => $request->description,
             'price' => $request->price,
             'category_id' => $request->category_id,
             'vendor_id' => $request->vendor_id,

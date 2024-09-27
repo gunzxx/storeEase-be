@@ -22,6 +22,16 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="description">Deskripsi</label>
+            <div class="form-input">
+                <input required autofocus name="description" type="text" id="description" placeholder="description"
+                    value="{{ old('description') }}">
+                @error('description')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="form-group">
             <label for="price">Price</label>
             <div class="form-input">
                 <input required autofocus name="price" type="number" id="price" placeholder="Price"
@@ -62,7 +72,7 @@
             </div>
         </div>
         <div class="form-group">
-            <button>Edit</button>
+            <button>Simpan</button>
         </div>
     </form>
 @endsection

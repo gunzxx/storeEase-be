@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('services', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->longText('description');
             $table->decimal('price', 15, 2);
             $table->foreignId('service_category_id')->references('id')->on('service_categories')->onDelete('cascade');
             $table->foreignId('vendor_id')->references('id')->on('vendors')->onDelete('cascade');

@@ -4,40 +4,49 @@ use App\Http\Controllers\api\admin\AdminController;
 use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
+use App\Http\Controllers\api\HomePageController;
 use App\Http\Controllers\api\product\ProductController;
+use App\Http\Controllers\api\ServiceController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
+Route::middleware(['guest'])->group(function(){
+    Route::prefix('auth')->group(function(){
+        Route::prefix('admin')->group(function(){
+            Route::post('login', [AuthAdminController::class, 'login']);
+            Route::post('register', [AuthAdminController::class, 'register']);
+        });
+        Route::prefix('vendor')->group(function(){
+            Route::post('login', [AuthVendorController::class, 'login']);
+            Route::post('register', [AuthVendorController::class, 'register']);
+        });
+        Route::prefix('customer')->group(function(){
+            Route::post('login', [AuthCustomerController::class, 'login']);
+            Route::post('register', [AuthCustomerController::class, 'register']);
+        });
+    });
+});
 
-Route::prefix('auth')->group(function(){
+
+Route::middleware(['auth:adminweb'])->group(function(){
     Route::prefix('admin')->group(function(){
-        Route::post('login', [AuthAdminController::class, 'login']);
-        Route::post('register', [AuthAdminController::class, 'register']);
+        Route::get('/', [AdminController::class, 'index']);
     });
-    Route::prefix('vendor')->group(function(){
-        Route::post('login', [AuthVendorController::class, 'login']);
-        Route::post('register', [AuthVendorController::class, 'register']);
-    });
-    Route::prefix('customer')->group(function(){
-        Route::post('login', [AuthCustomerController::class, 'login']);
-        Route::post('register', [AuthCustomerController::class, 'register']);
+    
+    Route::prefix('product')->group(function(){
+        Route::get('/', [ProductController::class, 'index']);
+        Route::post('/', [ProductController::class, 'create']);
+        Route::put('/', [ProductController::class, 'update']);
+        Route::delete('/', [ProductController::class, 'delete']);
     });
 });
 
-
-Route::prefix('admin')->group(function(){
-    Route::get('/', [AdminController::class, 'index']);
+Route::middleware(['multi-auth:vendor,admin,customer'])->group(function(){
+    Route::get('/homepage', [HomePageController::class, 'index']);
+    Route::get('/service/{id}', [ServiceController::class, 'single']);
 });
-
-Route::prefix('product')->group(function(){
-    Route::get('/', [ProductController::class, 'index']);
-    Route::post('/', [ProductController::class, 'create']);
-    Route::put('/', [ProductController::class, 'update']);
-    Route::delete('/', [ProductController::class, 'delete']);
-});
-
 
 
 

@@ -66,6 +66,7 @@ class DatabaseSeeder extends Seeder
 
         Service::create([
             'name' => 'Service 1',
+            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi similique doloribus consectetur quaerat impedit maiores laborum eum dolorum repellat fugiat atque excepturi, sit, ducimus ad eaque aspernatur temporibus? Nulla, corporis!',
             'price' => '10000',
             'service_category_id' => '1',
             'vendor_id' => '1',
@@ -73,6 +74,7 @@ class DatabaseSeeder extends Seeder
 
         Service::create([
             'name' => 'Service 2',
+            'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Eligendi similique doloribus consectetur quaerat impedit maiores laborum eum dolorum repellat fugiat atque excepturi, sit, ducimus ad eaque aspernatur temporibus? Nulla, corporis!',
             'price' => '20000',
             'service_category_id' => '2',
             'vendor_id' => '2',
