@@ -41,7 +41,6 @@
                 <tr>
                     <th scope="col">No.</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Deskripsi</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Vendor</th>
                     <th scope="col">Kategori</th>
@@ -56,9 +55,6 @@
                         </td>
                         <td>
                             <p>{{ $product->name }}</p>
-                        </td>
-                        <td>
-                            <p>{{ $product->description }}</p>
                         </td>
                         <td>
                             <p>Rp. {{ number_format($product->price, 0, 3, '.') }}</p>

@@ -13,7 +13,7 @@ class VendorController extends Controller
         return view('vendor.index', [
             'title' => 'Vendor',
             'page' => 'vendor',
-            'subpage1' => 'list',
+            'subpage1' => 'pacakage-list',
             'vendors' => $vendors,
         ]);
     }

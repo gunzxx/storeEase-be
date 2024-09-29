@@ -136,47 +136,44 @@
                             </ul>
                         </li>
 
-                        {{-- <li class="nav-item">
-                            <a href="/vendor" class="nav-link {{ $page == 'vendor' ? 'active' : '' }}">
+                        <li class="nav-item has-treeview {{ $page == 'package' ? 'menu-open' : '' }}">
+                            <a href="" class="nav-link  {{ $page == 'package' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-warehouse"></i>
                                 <p>
-                                    Vendor
+                                    Package
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/package" class="nav-link {{ $subpage1 == 'package-list' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-building"></i>
+                                        <p>Package List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/package-category" class="nav-link {{ $subpage1 == 'package-category' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>Package Category</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/package-detail" class="nav-link {{ $subpage1 == 'package-detail' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>Detail Service Package</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-
-                        <li class="nav-item">
-                            <a href="/category" class="nav-link {{ $page == 'category' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-boxes"></i>
-                                <p>
-                                    Category
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/product" class="nav-link {{ $page == 'product' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-box"></i>
-                                <p>
-                                    Product
-                                </p>
-                            </a>
-                        </li> --}}
 
                         <li class="nav-item">
                             <a href="/order" class="nav-link {{ $page == 'order' ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
                                     Order
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/package" class="nav-link {{ $page == 'package' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-cube"></i>
-                                <p>
-                                    Package
                                 </p>
                             </a>
                         </li>

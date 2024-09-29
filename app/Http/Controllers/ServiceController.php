@@ -38,7 +38,6 @@ class ServiceController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
-            'description' => 'required',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'vendor_id' => 'required',
@@ -95,7 +94,6 @@ class ServiceController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3',
-            'description' => 'required|min:3',
             'price' => 'required|numeric',
             'category_id' => 'required',
             'vendor_id' => 'required',

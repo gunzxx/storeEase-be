@@ -3,7 +3,9 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\DetailServicePackageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
@@ -41,8 +43,22 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
     Route::get('/order/{id}/detail', [OrderController::class, 'detail']);
     
     Route::get('/package', [PackageController::class, 'index']);
+    Route::get('/package/create', [PackageController::class, 'create']);
+    Route::post('/package/create', [PackageController::class, 'store']);
     Route::get('/package/{id}/edit', [PackageController::class, 'edit']);
     Route::post('/package/{id}/edit', [PackageController::class, 'update']);
+    
+    Route::get('/package-category', [PackageCategoryController::class, 'index']);
+    Route::get('/package-category/create', [PackageCategoryController::class, 'create']);
+    Route::post('/package-category/create', [PackageCategoryController::class, 'store']);
+    Route::get('/package-category/{id}/edit', [PackageCategoryController::class, 'edit']);
+    Route::post('/package-category/{id}/edit', [PackageCategoryController::class, 'update']);
+    
+    Route::get('/package-detail', [DetailServicePackageController::class, 'index']);
+    Route::get('/package-detail/create', [DetailServicePackageController::class, 'create']);
+    Route::post('/package-detail/create', [DetailServicePackageController::class, 'store']);
+    Route::get('/package-detail/{id}/edit', [DetailServicePackageController::class, 'edit']);
+    Route::post('/package-detail/{id}/edit', [DetailServicePackageController::class, 'update']);
 
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

@@ -11,7 +11,7 @@ class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['vendor', 'customer'])->get();
+        $orders = Order::with(['package', 'customer'])->get();
         return view('order.index', [
             'title' => 'Order',
             'page' => 'order',

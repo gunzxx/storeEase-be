@@ -28,10 +28,10 @@
             </div>
         </div>
     @endsession
-    
+
     <div class="create-btn-container">
-        <a href="/package/create">
-            Tambah paket<i class="fas fa-plus"></i>
+        <a href="/package-detail/create">
+            Tambah detail service paket<i class="fas fa-plus"></i>
         </a>
     </div>
 
@@ -40,34 +40,30 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Nama</th>
-                    <th scope="col">Harga</th>
-                    <th scope="col">Category</th>
+                    <th scope="col">Paket</th>
+                    <th scope="col">Service</th>
                     <th class="action-col" scope="col">Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($packages as $key => $package)
+                @foreach ($detailServicePackages as $key => $detailServicePackage)
                     <tr>
                         <td>
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $package->name }}</p>
+                            <p>{{ $detailServicePackage->package->name }}</p>
                         </td>
                         <td>
-                            <p>Rp. {{ number_format($package->price, 0, 3, '.') }}</p>
-                        </td>
-                        <td>
-                            <p>{!! $package->packageCategory->name !!}</p>
+                            <p>{!! $detailServicePackage->service->name !!}</p>
                         </td>
                         <td>
                             <div class="action-container">
-                                <a href="/package/{{ $package->id }}/edit">
+                                <a href="/package-detail/{{ $detailServicePackage->id }}/edit">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a class="delete-button">
-                                    <i data-id="{{ $package->id }}" class="fas fa-trash"
+                                    <i data-id="{{ $detailServicePackage->id }}" class="fas fa-trash"
                                         style="color: rgb(255, 98, 98);"></i>
                                 </a>
                             </div>
@@ -79,20 +75,19 @@
     </div>
 @endsection
 
-
 @section('js')
     <script>
         $('.delete-button').click((e) => {
             Swal.fire({
                 title: 'Hapus',
-                text: 'Hapus data package?',
+                text: 'Hapus data?',
                 icon: 'question',
                 showCancelButton: true,
             }).then(answer => {
                 if (answer.isConfirmed) {
                     const id = e.target.getAttribute('data-id');
                     const token = getCookie('jwt');
-                    fetch(`/api/package/${id}`, {
+                    fetch(`/api/package-detail/${id}`, {
                             method: 'DELETE',
                             headers: {
                                 'Authorization': `Bearer ${token}`,

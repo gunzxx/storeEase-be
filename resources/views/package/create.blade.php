@@ -14,7 +14,7 @@
         <div class="form-group">
             <label for="name">Name</label>
             <div class="form-input">
-                <input required name="name" type="text" id="name" placeholder="Name" value="{{ old('name', $package->name) }}">
+                <input required name="name" type="text" id="name" placeholder="Name" value="{{ old('name') }}">
                 @error('name')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label for="price">Price</label>
             <div class="form-input">
-                <input required name="price" type="number" id="price" placeholder="price" value="{{ old('price', $package->price) }}">
+                <input required name="price" type="number" id="price" placeholder="price" value="{{ old('price') }}">
                 @error('price')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -32,7 +32,7 @@
         <div class="form-group">
             <label for="description">Phone</label>
             <div class="form-input">
-                <textarea name="description" id="description" cols="30" rows="10">{{ old('description', $package->description) }}</textarea>
+                <textarea name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
                 @error('description')
                 <div class="error-message">{{ $message }}</div>
                 @enderror
@@ -43,7 +43,7 @@
             <div class="form-input">
                 <select name="packageCategory" id="packageCategory">
                     @foreach ($packageCategories as $packageCategory)
-                        <option value="{{ $packageCategory->id }}" {{ $packageCategory->id == $package->package_category_id ? 'selected' : '' }}>{{ $packageCategory->name }}</option>
+                        <option value="{{ $packageCategory->id }}" >{{ $packageCategory->name }}</option>
                     @endforeach
                 </select>
                 @error('packageCategory')

@@ -14,8 +14,7 @@ class AuthCustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email',
-            'password' => 'required|min:5|confirmed',
-            'password_confirmation' => 'required|min:5',
+            'password' => 'required|min:5',
             'phone' => 'required',
         ]);
 

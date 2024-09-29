@@ -3,18 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Models\Package;
+use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
     public function index()
     {
-        $packages = Package::all();
+        $packages = Package::with(['packageCategory'])->get();
+        
         return view('package.index', [
             'title' => 'Package',
             'page' => 'package',
+            'subpage1' => 'package-list',
             'packages' => $packages,
         ]);
+    }
+
+    public function create()
+    {
+        $packageCategories = PackageCategory::all();
+
+        return view('package.create', [
+            'title' => 'Create Package',
+            'page' => 'package',
+            'subpage1' => 'package-list',
+            'packageCategories' => $packageCategories,
+        ]);
+    }
+    
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|min:3',
+            'price' => 'required|numeric',
+            'description' => 'required',
+            'packageCategory' => 'required',
+        ]);
+
+        Package::create([
+            'name' => $request->name,
+            'price' => $request->price,
+            'description' => $request->description,
+            'package_category_id' => $request->packageCategory,
+        ]);
+
+        return redirect('/package')->with([
+            'success' => 'Data berhasil ditambahkan',
+        ]);;
     }
 
     public function edit($packageId)
@@ -26,10 +62,14 @@ class PackageController extends Controller
             ]);
         }
 
+        $packageCategories = PackageCategory::all();
+
         return view('package.edit', [
             'title' => 'Edit Package',
             'page' => 'package',
+            'subpage1' => 'package-list',
             'package' => $package,
+            'packageCategories' => $packageCategories,
         ]);
     }
 
@@ -38,7 +78,8 @@ class PackageController extends Controller
         $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|numeric',
-            'detail' => 'required',
+            'description' => 'required',
+            'packageCategory' => 'required',
         ]);
 
         $package = Package::find($packageId);
@@ -52,6 +93,7 @@ class PackageController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'detail' => $request->detail,
+            'package_category_id' => $request->packageCategory,
         ]);
 
         return redirect('/package')->with([

@@ -10,4 +10,12 @@ class Package extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function packageCategory(){
+        return $this->belongsTo(PackageCategory::class);
+    }
+
+    public function order(){
+        return $this->hasMany(Order::class);
+    }
 }

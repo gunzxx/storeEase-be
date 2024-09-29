@@ -4,9 +4,9 @@ use App\Http\Controllers\api\admin\AdminController;
 use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
-use App\Http\Controllers\api\HomePageController;
+use App\Http\Controllers\api\DetailServicePackageController;
 use App\Http\Controllers\api\product\ProductController;
-use App\Http\Controllers\api\ServiceController;
+use App\Http\Controllers\api\CustomerProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\VendorController;
@@ -44,8 +44,10 @@ Route::middleware(['auth:adminweb'])->group(function(){
 });
 
 Route::middleware(['multi-auth:vendor,admin,customer'])->group(function(){
-    Route::get('/homepage', [HomePageController::class, 'index']);
-    Route::get('/service/{id}', [ServiceController::class, 'single']);
+    Route::get('/homepage', [DetailServicePackageController::class, 'index']);
+    Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
+    Route::get('/customer/detail', [CustomerProfileController::class, 'detail']);
+    Route::post('/customer/profile', [CustomerProfileController::class, 'update']);
 });
 
 
@@ -60,4 +62,6 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('/product/{id}', [App\Http\Controllers\ServiceController::class, 'delete']);
     Route::delete('/order/{id}', [App\Http\Controllers\OrderController::class, 'delete']);
     Route::delete('/package/{id}', [App\Http\Controllers\PackageController::class, 'delete']);
+    Route::delete('/package-category/{id}', [App\Http\Controllers\PackageCategoryController::class, 'delete']);
+    Route::delete('/package-detail/{id}', [App\Http\Controllers\DetailServicePackageController::class, 'delete']);
 });

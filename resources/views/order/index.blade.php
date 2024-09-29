@@ -34,8 +34,6 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
-                    <th scope="col">Order ID</th>
-                    <th scope="col">Total Harga</th>
                     <th scope="col">Status</th>
                     <th scope="col">Vendor ID</th>
                     <th scope="col">Customer ID</th>
@@ -49,16 +47,10 @@
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->uuid }}</p>
-                        </td>
-                        <td>
-                            <p>Rp. {{ number_format($order->total_price, 0, 2, '.') }}</p>
-                        </td>
-                        <td>
                             <p>{{ $order->status }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->vendor->id }}</p>
+                            <p>{{ $order->package->id }}</p>
                         </td>
                         <td>
                             <p>{{ $order->customer->id }}</p>
