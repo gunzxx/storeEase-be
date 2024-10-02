@@ -1,11 +1,9 @@
 <?php
 
-use App\Http\Controllers\api\admin\AdminController;
 use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
 use App\Http\Controllers\api\DetailServicePackageController;
-use App\Http\Controllers\api\product\ProductController;
 use App\Http\Controllers\api\CustomerProfileController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;
@@ -29,25 +27,11 @@ Route::middleware(['guest'])->group(function(){
     });
 });
 
-
-Route::middleware(['auth:adminweb'])->group(function(){
-    Route::prefix('admin')->group(function(){
-        Route::get('/', [AdminController::class, 'index']);
-    });
-    
-    Route::prefix('product')->group(function(){
-        Route::get('/', [ProductController::class, 'index']);
-        Route::post('/', [ProductController::class, 'create']);
-        Route::put('/', [ProductController::class, 'update']);
-        Route::delete('/', [ProductController::class, 'delete']);
-    });
-});
-
 Route::middleware(['multi-auth:vendor,admin,customer'])->group(function(){
     Route::get('/homepage', [DetailServicePackageController::class, 'index']);
     Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
-    Route::get('/customer/detail', [CustomerProfileController::class, 'detail']);
-    Route::post('/customer/profile', [CustomerProfileController::class, 'update']);
+    Route::get('/customer', [CustomerProfileController::class, 'detail']);
+    Route::post('/customer', [CustomerProfileController::class, 'update']);
 });
 
 
