@@ -30,6 +30,9 @@ Route::middleware(['guest'])->group(function(){
 Route::middleware(['multi-auth:vendor,admin,customer'])->group(function(){
     Route::get('/homepage', [DetailServicePackageController::class, 'index']);
     Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
+});
+
+Route::middleware(['multi-auth:customer'])->group(function(){
     Route::get('/customer', [CustomerProfileController::class, 'detail']);
     Route::post('/customer', [CustomerProfileController::class, 'update']);
 });
