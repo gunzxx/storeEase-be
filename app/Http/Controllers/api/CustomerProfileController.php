@@ -13,7 +13,7 @@ class CustomerProfileController extends Controller
     {
         $id = auth()->user()->id;
         $customer = Customer::find($id);
-        $customer['profile_img'] = $customer->getFirstMediaUrl('profile_img') == "" ? "https://paa.gunzxx.my.id/img/profile/default.png" : $customer->getFirstMediaUrl('profile_img');
+        $customer['profile_img'] = $customer->getFirstMediaUrl('profile_img') == "" ? env('APP_URL', 'https://be.storease.id')."/img/profile/default.png" : $customer->getFirstMediaUrl('profile_img');
 
         return response()->json([
             'data' => $customer->only(['name', 'email', 'phone', 'profile_img']),
