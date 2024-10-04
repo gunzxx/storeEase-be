@@ -9,10 +9,10 @@
         <h1>{{ $title ?? 'Admin Dashboard' }}</h1>
     </div>
 
-    <form method="POST" action="" class="form-container">
+    <form method="POST" action="" class="form-container" enctype="multipart/form-data">
         @csrf
         <div class="form-group">
-            <label for="name">Name</label>
+            <label for="name">Nama</label>
             <div class="form-input">
                 <input required name="name" type="text" id="name" placeholder="Name" value="{{ old('name', $package->name) }}">
                 @error('name')
@@ -21,7 +21,7 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="price">Price</label>
+            <label for="price">Harga</label>
             <div class="form-input">
                 <input required name="price" type="number" id="price" placeholder="price" value="{{ old('price', $package->price) }}">
                 @error('price')
@@ -30,7 +30,16 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="description">Phone</label>
+            <label for="preview_img">Preview</label>
+            <div class="form-input">
+                <input required multiple="true" name="preview_img[]" type="file" accept="image/*" id="preview_img" placeholder="preview_img" value="{{ old('preview_img') }}">
+                @error('preview_img')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="description">Deskripsi</label>
             <div class="form-input">
                 <textarea name="description" id="description" cols="30" rows="10">{{ old('description', $package->description) }}</textarea>
                 @error('description')

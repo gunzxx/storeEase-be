@@ -89,6 +89,16 @@ class PackageController extends Controller
             ]);
         }
 
+        if($request->hasFile('preview_img')){
+            $request->validate([
+                'preview_img.*' => 'mimes:jpeg,jpg,png',
+            ]);
+
+            foreach ($request->file('preview_img') as $image) {
+                $package->addMedia($image)->toMediaCollection('preview_img');
+            }
+        }
+
         $package->update([
             'name' => $request->name,
             'price' => $request->price,

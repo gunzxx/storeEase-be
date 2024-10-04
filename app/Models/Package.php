@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Package extends Model
+class Package extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory, InteractsWithMedia;
 
     protected $guarded = ['id'];
 
@@ -17,5 +19,15 @@ class Package extends Model
 
     public function order(){
         return $this->hasMany(Order::class);
+    }
+
+    public function detailServicePackage(){
+        return $this->hasMany(DetailServicePackage::class);
+    }
+
+    public function registerMediaCollections(): void
+    {
+        $this
+            ->addMediaCollection('preview_img');
     }
 }

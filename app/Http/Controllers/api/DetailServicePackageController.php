@@ -10,7 +10,26 @@ class DetailServicePackageController extends Controller
 {
     public function index()
     {
-        $detailServicePackage = DetailServicePackage::with(['service', 'package'])->get();
+        $detailServicePackage = DetailServicePackage::
+            with(['service'])
+            // ->with(['package'])
+            ->with('package', function($packages){
+                $packages->with(['media']);
+            })
+            ->get();
+
+        $detailServicePackageNew = $detailServicePackage->map(function($detailPackage){
+            $mediaUrls = $detailPackage->package->getMedia('preview_img')->map(function($media){
+                return $media->getUrl();
+            });
+
+            $detailPackage->package['preview_img'] = $mediaUrls;
+            unset($detailPackage->package['media']);
+            return $detailPackage;
+        });
+
+        return $detailServicePackageNew;
+
         return response()->json([
             'data' => $detailServicePackage,
             'message' => 'success',
