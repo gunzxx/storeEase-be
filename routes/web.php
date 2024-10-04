@@ -13,7 +13,7 @@ use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
+Route::group(['middleware' => ['auth:adminweb']],function () {
     Route::get('/', [AdminController::class, 'index']);
     Route::post('/', [AdminController::class, 'update']);
 
@@ -67,7 +67,7 @@ Route::middleware(['auth:adminweb', 'adminweb'])->group(function () {
 });
 
 
-Route::middleware(['guest:adminweb'])->group(function () {
+Route::group(['middleware' => ['guest']], function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
 
     Route::post('/login', [AuthController::class, 'handleLogin']);
