@@ -51,4 +51,5 @@ Route::middleware(['admin'])->group(function(){
     Route::delete('/package/{id}', [App\Http\Controllers\PackageController::class, 'delete']);
     Route::delete('/package-category/{id}', [App\Http\Controllers\PackageCategoryController::class, 'delete']);
     Route::delete('/package-detail/{id}', [App\Http\Controllers\DetailServicePackageController::class, 'delete']);
+    Route::delete('/preview-package/{id}', [App\Http\Controllers\PackageController::class, 'deletePreview']);
 });

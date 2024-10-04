@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Package;
 use App\Models\PackageCategory;
 use Illuminate\Http\Request;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 class PackageController extends Controller
 {
@@ -41,12 +42,24 @@ class PackageController extends Controller
             'packageCategory' => 'required',
         ]);
 
-        Package::create([
+        $package = Package::create([
             'name' => $request->name,
             'price' => $request->price,
             'description' => $request->description,
             'package_category_id' => $request->packageCategory,
         ]);
+        
+        if($request->hasFile('preview_img')){
+            $request->validate([
+                'preview_img.*' => 'mimes:jpeg,jpg,png',
+            ]);
+
+            $package = Package::find($package->id);
+
+            foreach ($request->file('preview_img') as $image) {
+                $package->addMedia($image)->toMediaCollection('preview_img');
+            }
+        }
 
         return redirect('/package')->with([
             'success' => 'Data berhasil ditambahkan',
@@ -55,7 +68,7 @@ class PackageController extends Controller
 
     public function edit($packageId)
     {
-        $package = Package::find($packageId);
+        $package = Package::with(['media'])->find($packageId);
         if (!$package) {
             return redirect('/package')->withErrors([
                 'data' => 'data tidak ditemukan',
@@ -123,6 +136,21 @@ class PackageController extends Controller
         $package->delete();
         return response()->json([
             'message' => 'data berhasil dihapus',
+        ]);
+    }
+
+    public function deletePreview(Request $request, $id){
+        if(!$media = Media::find($id)){
+            return response()->json([
+                "message" => "data tidak ditemukan",
+            ],404);
+        }
+
+        $media->delete();
+
+        return response()->json([
+            'data' => $media,
+            "message" => "data berhasil dihapus",
         ]);
     }
 }

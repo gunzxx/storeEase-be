@@ -23,12 +23,10 @@ class DetailServicePackageController extends Controller
                 return $media->getUrl();
             });
 
-            $detailPackage->package['preview_img'] = $mediaUrls;
+            $detailPackage['preview_img'] = $mediaUrls;
             unset($detailPackage->package['media']);
             return $detailPackage;
         });
-
-        return $detailServicePackageNew;
 
         return response()->json([
             'data' => $detailServicePackage,
