@@ -29,7 +29,7 @@ class DetailServicePackageController extends Controller
         });
 
         return response()->json([
-            'data' => $detailServicePackage,
+            'data' => $detailServicePackageNew,
             'message' => 'success',
         ]);
     }
