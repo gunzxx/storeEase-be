@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class ReportController extends Controller
 {
     public function index(){
-        $documents = Document::all();
+        $documents = Document::orderBy('updated_at', 'DESC')->get();
 
         return view('report.index',[
             'title' => 'Report',
