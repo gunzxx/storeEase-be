@@ -34,17 +34,21 @@
             <label for="type">Jenis Dokumen</label>
             <div class="form-input">
                 <select name="type" id="type" class="select2">
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Notulensi Rapat Perdana" >Notulensi Rapat Perdana</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Desain Venue" >Desain Venue</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="MOU" >MOU</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Invoice Down Payment" >Invoice Down Payment</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Invoice Final Payment" >Invoice Final Payment</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Desain Tata Ruang" >Desain Tata Ruang</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Tata Acara(Rundown)" >Tata Acara(Rundown)</option>
-                    <option {{ $document->type == "" ? "selected" : '' }} value="Laporan Akhir" >Laporan Akhir</option>
+                    <option {{ $document->type == "Notulensi Rapat Perdana" ? "selected" : '' }} value="Notulensi Rapat Perdana" >Notulensi Rapat Perdana</option>
+                    <option {{ $document->type == "Desain Venue" ? "selected" : '' }} value="Desain Venue" >Desain Venue</option>
+                    <option {{ $document->type == "MOU" ? "selected" : '' }} value="MOU" >MOU</option>
+                    <option {{ $document->type == "Invoice Down Payment" ? "selected" : '' }} value="Invoice Down Payment" >Invoice Down Payment</option>
+                    <option {{ $document->type == "Invoice Final Payment" ? "selected" : '' }} value="Invoice Final Payment" >Invoice Final Payment</option>
+                    <option {{ $document->type == "Desain Tata Ruang" ? "selected" : '' }} value="Desain Tata Ruang" >Desain Tata Ruang</option>
+                    <option {{ $document->type == "Tata Acara(Rundown)" ? "selected" : '' }} value="Tata Acara(Rundown)" >Tata Acara(Rundown)</option>
+                    <option {{ $document->type == "Laporan Akhir" ? "selected" : '' }} value="Laporan Akhir" >Laporan Akhir</option>
                     <option {{ !in_array($document->type, $options) ? "selected" : "" }} value="other" >Lain-lain</option>
                 </select>
-                <input style="display: {{ in_array($document->type, $options) ? "none" : "block" }}" {{ !in_array($document->type, $options) ? "value=".$document->type."" : "" }} type="text" name="other_type" id="other_type" placeholder="Masukkan jenis dokumen">
+                <input style="display: {{ in_array($document->type, $options) ? "none" : "block" }}"
+                    @if (!in_array($document->type, $options)) 
+                        value="{{ e($document->type) }}" 
+                    @endif
+                    type="text" name="other_type" id="other_type" placeholder="Masukkan jenis dokumen">
                 @error('type')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
