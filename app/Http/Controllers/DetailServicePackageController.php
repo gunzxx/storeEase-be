@@ -13,7 +13,7 @@ class DetailServicePackageController extends Controller
         $detailServicePackages = DetailServicePackage::with(['service', 'package'])->get();
 
         return view('detailServicePackage.index', [
-            'title' => 'Package',
+            'title' => 'Detail Package Service',
             'page' => 'package',
             'subpage1' => 'package-detail',
             'detailServicePackages' => $detailServicePackages,
@@ -26,7 +26,7 @@ class DetailServicePackageController extends Controller
         $packages = Package::all();
 
         return view('detailServicePackage.create', [
-            'title' => 'Create Package',
+            'title' => 'Create Detail Package Service',
             'page' => 'package',
             'subpage1' => 'package-detail',
             'packages' => $packages,
@@ -64,7 +64,7 @@ class DetailServicePackageController extends Controller
         $packages = Package::all();
 
         return view('detailServicePackage.edit', [
-            'title' => 'Create Package',
+            'title' => 'Edit Detail Package Service',
             'page' => 'package',
             'subpage1' => 'package-detail',
             'packages' => $packages,

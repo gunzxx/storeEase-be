@@ -20,7 +20,7 @@ class PackageCategoryController extends Controller
 
     public function create(){
         return view('packageCategory.create', [
-            'title' => 'Create Package',
+            'title' => 'Create Package Category',
             'page' => 'package',
             'subpage1' => 'package-category',
         ]);
@@ -51,7 +51,7 @@ class PackageCategoryController extends Controller
         }
 
         return view('packageCategory.edit', [
-            'title' => 'Edit Package',
+            'title' => 'Edit Package Category',
             'page' => 'package',
             'subpage1' => 'package-category',
             'packageCategory' => $packageCategory,

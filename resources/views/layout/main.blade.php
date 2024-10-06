@@ -27,6 +27,12 @@
     <link rel="stylesheet" href="/lte/plugins/summernote/summernote-bs4.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="/lte/plugins/jquery/jquery.min.js"></script>
+    <!-- Select2 -->
+    <link href="/select2/select2.min.css" rel="stylesheet" />
+    <script src="/select2/select2.full.min.js"></script>
+
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="/style/admin/table.css">
     <script src="/js/cookie.js"></script>
@@ -169,22 +175,30 @@
                             </ul>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/order" class="nav-link {{ $page == 'order' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-list"></i>
+                        <li class="nav-item has-treeview {{ $page == 'order' ? 'menu-open' : '' }}">
+                            <a href="" class="nav-link  {{ $page == 'order' ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-warehouse"></i>
                                 <p>
                                     Order
+                                    <i class="right fas fa-angle-left"></i>
                                 </p>
                             </a>
-                        </li>
-
-                        <li class="nav-item">
-                            <a href="/report" class="nav-link {{ $page == 'report' ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Report
-                                </p>
-                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="/order/list" class="nav-link {{ $subpage1 == 'order' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-list"></i>
+                                        <p>Order List</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="/order/report" class="nav-link {{ $subpage1 == 'report' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-file"></i>
+                                        <p>Report</p>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         {{-- <li class="nav-item has-treeview menu-open">
@@ -319,10 +333,7 @@
         <!-- /.control-sidebar -->
     </div>
 
-    <!-- jQuery -->
-    <script src="/lte/plugins/jquery/jquery.min.js"></script>
-    <!-- jQuery UI 1.11.4 -->
-    <script src="/lte/plugins/jquery-ui/jquery-ui.min.js"></script>
+    
     <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
     <script>
         $.widget.bridge('uibutton', $.ui.button)

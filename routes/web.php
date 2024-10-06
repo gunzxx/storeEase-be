@@ -7,6 +7,7 @@ use App\Http\Controllers\DetailServicePackageController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\VendorController;
@@ -59,6 +60,12 @@ Route::group(['middleware' => ['auth:adminweb']],function () {
     Route::post('/package-detail/create', [DetailServicePackageController::class, 'store']);
     Route::get('/package-detail/{id}/edit', [DetailServicePackageController::class, 'edit']);
     Route::post('/package-detail/{id}/edit', [DetailServicePackageController::class, 'update']);
+    
+    Route::get('/order/report', [ReportController::class, 'index']);
+    Route::get('/order/report/upload', [ReportController::class, 'upload']);
+    Route::post('/order/report/upload', [ReportController::class, 'store']);
+    Route::get('/order/report/{id}/edit', [ReportController::class, 'edit']);
+    Route::post('/order/report/{id}/edit', [ReportController::class, 'update']);
 
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

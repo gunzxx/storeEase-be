@@ -98,3 +98,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.form-group.other-type-form{
+    align-items: start;
+}
+.form-input input.select2{
+    height: auto !important;
+}
