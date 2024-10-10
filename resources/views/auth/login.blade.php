@@ -19,8 +19,8 @@
             @error('wrong')
                 <span style="color: rgb(255, 98, 98);">{{ $message }}</span>
             @enderror
-            <input type="text" name="email" id="email">
-            <input type="password" name="password" id="password">
+            <input required autofocus placeholder="Masukkan email" type="text" name="email" id="email">
+            <input required placeholder="Masukkan password" type="password" name="password" id="password">
             <button>Login</button>
         </form>
     </div>
