@@ -5,6 +5,7 @@ use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
 use App\Http\Controllers\api\DetailServicePackageController;
 use App\Http\Controllers\api\CustomerProfileController;
+use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\VendorController;
@@ -25,6 +26,8 @@ Route::middleware(['guest'])->group(function(){
             Route::post('register', [AuthCustomerController::class, 'register']);
         });
     });
+
+    Route::get('order', [OrderController::class, 'order']);
 });
 
 Route::middleware(['jwt-verify', 'multi-auth:vendor,admin,customer'])->group(function(){

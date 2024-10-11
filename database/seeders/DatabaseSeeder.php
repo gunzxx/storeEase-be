@@ -119,8 +119,15 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Order::create([
+            'uuid' => Uuid::uuid4(),
             'package_id' => 1,
             'customer_id' => 1,
+            'status' => 'paid',
+        ]);
+        Order::create([
+            'uuid' => Uuid::uuid4(),
+            'package_id' => 1,
+            'customer_id' => 2,
             'status' => 'paid',
         ]);
 
