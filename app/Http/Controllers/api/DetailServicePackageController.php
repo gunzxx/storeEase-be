@@ -47,7 +47,11 @@ class DetailServicePackageController extends Controller
 
     public function single($id)
     {
-        $detailServicePackage = DetailServicePackage::with(['service', 'package'])->find($id);
+        if(!$detailServicePackage = DetailServicePackage::with(['service', 'package'])->find($id)){
+            return response()->json([
+                'message' => 'data tidak ditemukan',
+            ],404);
+        }
 
         return response()->json([
             'data' => $detailServicePackage,
