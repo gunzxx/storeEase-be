@@ -17,13 +17,13 @@ class DetailServicePackageController extends Controller
             })
             ->get();
 
-        $categoryNew = $packages->map(function ($categoryPackages) {
-            $mediaUrls = $categoryPackages->package->map(function ($package) {
-                unset($package['media']);
+        $packages->map(function ($categoryPackages) {
+            $categoryPackages->package->map(function ($package) {
                 return $package['preview_url'] = $package->getMedia('preview_img')->map(function ($media) {
                     return $media->getUrl();
                 });
             });
+
             $categoryPackages->package->map(function ($package) {
                 unset($package['media']);
             });
