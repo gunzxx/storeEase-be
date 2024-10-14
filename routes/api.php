@@ -30,8 +30,8 @@ Route::middleware(['guest'])->group(function(){
     Route::get('order', [OrderController::class, 'order']);
 });
 
+Route::get('/homepage', [DetailServicePackageController::class, 'index']);
 Route::middleware(['jwt-verify', 'multi-auth:vendor,admin,customer'])->group(function(){
-    Route::get('/homepage', [DetailServicePackageController::class, 'index']);
     Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
 });
 

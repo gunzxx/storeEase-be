@@ -43,25 +43,26 @@ class Handler extends ExceptionHandler
             ], 405);
         }
 
-        if ($request->is('api/*')) {
-            if ($exception instanceof ValidationException) {
-                return response()->json([
-                    'message' => 'Validation Error',
-                    'errors' => $exception->errors()
-                ], Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
+        // if ($request->is('api/*')) {
+        //     if ($exception instanceof ValidationException) {
+        //         return response()->json([
+        //             'message' => 'Validation Error',
+        //             'errors' => $exception->errors()
+        //         ], Response::HTTP_UNPROCESSABLE_ENTITY);
+        //     }
 
-            if ($exception instanceof NotFoundHttpException) {
-                return response()->json([
-                    'message' => 'Resource Not Found'
-                ], Response::HTTP_NOT_FOUND);
-            }
+        //     if ($exception instanceof NotFoundHttpException) {
+        //         return response()->json([
+        //             'message' => 'Resource Not Found'
+        //         ], Response::HTTP_NOT_FOUND);
+        //     }
 
-            // Handle other exceptions
-            return response()->json([
-                'message' => $exception->getMessage(),
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
+        //     // Handle other exceptions
+        //     return response()->json([
+        //         'message' => $exception->getMessage(),
+        //         'error_full' => $exception->getTrace(),
+        //     ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        // }
 
         return parent::render($request, $exception);
     }
