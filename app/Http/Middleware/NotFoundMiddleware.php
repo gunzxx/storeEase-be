@@ -10,11 +10,11 @@ class NotFoundMiddleware
     {
         $response = $next($request);
 
-        if ($response->status() == 404) {
-            return response()->json([
-                'message' => 'Path not found',
-            ], 404);
-        }
+        // if ($response->status() == 404) {
+        //     return response()->json([
+        //         'message' => 'Path not found',
+        //     ], 404);
+        // }
 
         return $response;
     }
