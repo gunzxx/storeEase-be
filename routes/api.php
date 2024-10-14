@@ -3,8 +3,8 @@
 use App\Http\Controllers\api\auth\AuthAdminController;
 use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
-use App\Http\Controllers\api\DetailServicePackageController;
 use App\Http\Controllers\api\CustomerProfileController;
+use App\Http\Controllers\api\DetailServicePackageController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;

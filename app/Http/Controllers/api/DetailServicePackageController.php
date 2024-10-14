@@ -49,7 +49,7 @@ class DetailServicePackageController extends Controller
     {
         if(!$detailServicePackage = DetailServicePackage::with(['service', 'package'])->find($id)){
             return response()->json([
-                'message' => 'data tidak ditemukan',
+                'message' => 'package tidak ditemukan',
             ],404);
         }
 
