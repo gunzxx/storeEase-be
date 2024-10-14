@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
 
             if ($exception instanceof NotFoundHttpException) {
                 return response()->json([
-                    'message' => 'Resource Not Found'
+                    'message' => 'Path Not Found'
                 ], Response::HTTP_NOT_FOUND);
             }
 
