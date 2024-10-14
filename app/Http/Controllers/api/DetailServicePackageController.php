@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\DetailServicePackage;
+use App\Models\Package;
 use App\Models\PackageCategory;
 use Illuminate\Http\Request;
 
@@ -47,16 +48,22 @@ class DetailServicePackageController extends Controller
 
     public function single($id)
     {
-        $detailServicePackage = DetailServicePackage::with(['service', 'package'])->find($id);
-
-        if(!$detailServicePackage){
+        $package = Package::with(['media', 'packageCategory'])->find($id);
+        
+        if(!$package){
             return response()->json([
                 'message' => 'package tidak ditemukan',
             ],404);
         }
 
+        $url = $package->getMedia('preview_img')->map(function($media){
+            return $media->getUrl();
+        });
+        unset($package['media']);
+        $package['preview_url'] = $url;
+        
         return response()->json([
-            'data' => $detailServicePackage,
+            'data' => $package,
             'message' => 'success',
         ]);
     }
