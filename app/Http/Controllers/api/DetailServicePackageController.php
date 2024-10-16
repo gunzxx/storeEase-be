@@ -20,25 +20,16 @@ class DetailServicePackageController extends Controller
 
         $packages->map(function ($categoryPackages) {
             $categoryPackages->package->map(function ($package) {
-                return $package['preview_url'] = $package->getMedia('preview_img')->map(function ($media) {
+                $package['preview_url'] = $package->getMedia('preview_img')->map(function ($media) {
                     return $media->getUrl();
                 });
-            });
-
-            $categoryPackages->package->map(function ($package) {
+                
                 unset($package['media']);
+                return $package;
             });
+            
             return $categoryPackages;
         });
-
-        // $categoryNew = $packages->map(function($detailPackage){
-        //     $mediaUrls = $detailPackage->package->getMedia('preview_img')->map(function($media){
-        //         return $media->getUrl();
-        //     });
-        //     $detailPackage['preview_img'] = $mediaUrls;
-        //     unset($detailPackage->package['media']);
-        //     return $detailPackage;
-        // });
 
         return response()->json([
             'data' => $packages,
@@ -48,11 +39,9 @@ class DetailServicePackageController extends Controller
 
     public function single($id)
     {
-        $package = Package::with(['media', 'packageCategory'])->find($id);
-        
-        if(!$package){
+        if(!$package = Package::with(['media', 'packageCategory'])->find($id)){
             return response()->json([
-                'message' => 'package tidak ditemukan',
+                'message' => 'package not found',
             ],404);
         }
 

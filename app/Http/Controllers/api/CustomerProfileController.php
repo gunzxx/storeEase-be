@@ -9,34 +9,35 @@ use Illuminate\Support\Facades\Validator;
 
 class CustomerProfileController extends Controller
 {
-    public function detail(Request $request)
+    public function detail()
     {
         $id = auth()->user()->id;
         $customer = Customer::find($id);
         $customer['profile_img'] = $customer->getFirstMediaUrl('profile_img') == "" ? env('APP_URL', 'https://be.storease.id')."/img/profile/default.png" : $customer->getFirstMediaUrl('profile_img');
 
         return response()->json([
-            'data' => $customer->only(['name', 'email', 'phone', 'profile_img']),
+            'data' => $customer->only(['name', 'email', 'address', 'phone', 'profile_img']),
         ]);
     }
 
     public function update(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
-            'email' => 'required',
+            'name' => 'required|min:3',
+            'email' => 'required|email',
+            'address' => 'required|min:5',
             'password' => 'required',
         ]);
 
         if ($validator->fails()) {
             return response()->json([
-                'message' => 'data tidak valid',
+                'message' => 'data invalid',
             ]);
         }
 
         if (!$customer = Customer::find(auth()->user()->id)) {
             return response()->json([
-                'message' => 'user tidak ditemukan',
+                'message' => 'user not found',
             ]);
         }
 
@@ -47,7 +48,7 @@ class CustomerProfileController extends Controller
 
             if ($validator2->fails()) {
                 if ($validator2->errors()->first() == "The profile field must not be greater than 2048 kilobytes.") {
-                    return response()->json(['message' => "Ukuran gambar terlalu besar. Max 2048KB"], 400);
+                    return response()->json(['message' => "image size is too big, max size is 2048KB"], 400);
                 }
                 return response()->json(['message' => $validator2->errors()->first()], 400);
             }
@@ -58,18 +59,20 @@ class CustomerProfileController extends Controller
             $customer->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'address' => $request->address,
                 'password' => bcrypt($request->password),
             ]);
         } else {
             $customer->update([
                 'name' => $request->name,
                 'email' => $request->email,
+                'address' => $request->address,
                 'password' => bcrypt($request->password),
             ]);
         }
 
         return response()->json([
-            'message' => 'data berhasil diperbarui',
+            'message' => 'data has been updated',
         ]);
     }
 }

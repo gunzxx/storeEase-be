@@ -15,7 +15,7 @@ class MultiAuth
      */
     public function handle(Request $request, Closure $next, ...$guards): Response
     {
-        // Jika tidak ada guard yang ditentukan, gunakan default guard
+        // Jika tidak ada guard yang ditentukan, gunakan default guard (disini memakai guard "web" sesuai pada file config/auth.php)
         if (empty($guards)) {
             $guards = [config('auth.defaults.guard')];
         }

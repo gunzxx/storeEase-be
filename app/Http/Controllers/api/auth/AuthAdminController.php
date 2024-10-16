@@ -31,9 +31,9 @@ class AuthAdminController extends Controller
         ]);
 
         return response()->json([
-            'message' => 'Register berhasil',
+            'message' => 'register success',
             'data' => $admin,
-        ]);
+        ], 201);
     }
 
     public function login(Request $request)
@@ -51,12 +51,12 @@ class AuthAdminController extends Controller
 
         if (!$token = auth()->guard('admin')->attempt($request->only(['email', 'password']))) {
             return response()->json([
-                'message' => 'Login gagal',
+                'message' => 'invalid username or password',
             ], 401);
         }
 
         return response()->json([
-            'message' => 'Login berhasil',
+            'message' => 'login success',
             'token' => $token,
         ]);
     }

@@ -74,8 +74,7 @@ Route::group(['middleware' => ['auth:adminweb']],function () {
 });
 
 
-Route::group(['middleware' => ['guest']], function () {
+Route::middleware('guest:adminweb')->group(function () {
     Route::get('/login', [AuthController::class, 'index'])->name('login');
-
     Route::post('/login', [AuthController::class, 'handleLogin']);
 });

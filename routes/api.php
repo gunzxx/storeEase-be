@@ -43,7 +43,7 @@ Route::middleware(['jwt-verify', 'multi-auth:customer'])->group(function(){
 
 
 /**
- * Route for web only
+ * API for web admin
  */
 Route::middleware(['admin'])->group(function(){
     Route::delete('/customer/{id}', [CustomerController::class, 'delete']);

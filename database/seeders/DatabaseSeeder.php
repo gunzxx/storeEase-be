@@ -29,10 +29,16 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@storease.id',
             'password' => bcrypt('password'),
         ]);
+        Admin::create([
+            'name' => 'Admin 1',
+            'email' => 'admin@storease.id',
+            'password' => bcrypt('password'),
+        ]);
         
         Customer::create([
             'name' => 'Customer 1',
             'email' => 'customer1@storease.id',
+            'address' => 'Jl. Kalimantan no 40',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
         ]);
@@ -40,6 +46,7 @@ class DatabaseSeeder extends Seeder
         Customer::create([
             'name' => 'Customer 2',
             'email' => 'customer2@storease.id',
+            'address' => 'Jl. Kalimantan no 40',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
         ]);
@@ -47,6 +54,7 @@ class DatabaseSeeder extends Seeder
         Vendor::create([
             'name' => 'Vendor 1',
             'email' => 'vendor1@storease.id',
+            'address' => 'Jl. Kalimantan no 40',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
         ]);
@@ -54,6 +62,7 @@ class DatabaseSeeder extends Seeder
         Vendor::create([
             'name' => 'Vendor 2',
             'email' => 'vendor2@storease.id',
+            'address' => 'Jl. Kalimantan no 40',
             'password' => bcrypt('password'),
             'phone' => '+628123456789',
         ]);

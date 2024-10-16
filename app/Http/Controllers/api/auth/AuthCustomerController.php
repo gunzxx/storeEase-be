@@ -14,6 +14,7 @@ class AuthCustomerController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
             'email' => 'required|email',
+            'address' => 'required|min:5',
             'password' => 'required|min:5',
             'phone' => 'required',
         ]);
@@ -27,14 +28,15 @@ class AuthCustomerController extends Controller
         $admin = Customer::create([
             'name' => $request->name,
             'email' => $request->email,
+            'address' => $request->address,
             'password' => bcrypt($request->password),
             'phone' => $request->phone,
         ]);
 
         return response()->json([
-            'message' => 'Register successfull',
+            'message' => 'register success',
             'data' => $admin,
-        ]);
+        ], 201);
     }
 
     public function login(Request $request)
@@ -52,12 +54,12 @@ class AuthCustomerController extends Controller
 
         if (!$token = auth()->guard('customer')->attempt($request->only(['email', 'password']))) {
             return response()->json([
-                'message' => 'Login gagal',
+                'message' => 'invalid username or password',
             ], 401);
         }
 
         return response()->json([
-            'message' => 'Login berhasil',
+            'message' => 'login success',
             'token' => $token,
         ]);
     }
