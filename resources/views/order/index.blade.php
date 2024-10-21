@@ -34,9 +34,10 @@
             <thead>
                 <tr>
                     <th scope="col">No.</th>
+                    <th scope="col">Paket</th>
+                    <th scope="col">Kategori Paket</th>
+                    <th scope="col">Nama Customer</th>
                     <th scope="col">Status</th>
-                    <th scope="col">Vendor ID</th>
-                    <th scope="col">Customer ID</th>
                     <th class="action-col" scope="col">Aksi</th>
                 </tr>
             </thead>
@@ -47,23 +48,26 @@
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->status }}</p>
+                            <p>{{ $order->detailServicePackage->package->name }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->package->id }}</p>
+                            <p>{{ $order->detailServicePackage->package->packageCategory->name }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->customer->id }}</p>
+                            <p>{{ $order->customer->name }}</p>
+                        </td>
+                        <td>
+                            <p>{{ $order->statusOrder->name }}</p>
                         </td>
                         <td>
                             <div class="action-container">
-                                <a href="/order/{{ $order->id }}/detail">
-                                    <i class="fas fa-eye"></i>
+                                <a href="/order/{{ $order->uuid }}/detail">
+                                    detail <i class="fas fa-eye"></i>
                                 </a>
-                                <a class="delete-button">
+                                {{-- <a class="delete-button">
                                     <i data-id="{{ $order->id }}" class="fas fa-trash"
                                         style="color: rgb(255, 98, 98);"></i>
-                                </a>
+                                </a> --}}
                             </div>
                         </td>
                     </tr>

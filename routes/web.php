@@ -5,6 +5,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DetailServicePackageController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\OrderController2;
+use App\Http\Controllers\OrderController3;
+use App\Http\Controllers\OrderController4;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReportController;
@@ -40,9 +43,6 @@ Route::group(['middleware' => ['auth:adminweb']],function () {
     Route::get('/vendor-service/{id}/edit', [ServiceController::class, 'edit']);
     Route::post('/vendor-service/{id}/edit', [ServiceController::class, 'update']);
     
-    Route::get('/order', [OrderController::class, 'index']);
-    Route::get('/order/{id}/detail', [OrderController::class, 'detail']);
-    
     Route::get('/package', [PackageController::class, 'index']);
     Route::get('/package/create', [PackageController::class, 'create']);
     Route::post('/package/create', [PackageController::class, 'store']);
@@ -61,6 +61,20 @@ Route::group(['middleware' => ['auth:adminweb']],function () {
     Route::get('/package-detail/{id}/edit', [DetailServicePackageController::class, 'edit']);
     Route::post('/package-detail/{id}/edit', [DetailServicePackageController::class, 'update']);
     
+    Route::get('/order/list', [OrderController::class, 'index']);
+    Route::get('/order/{orderId}/detail', [OrderController::class, 'detail']);
+    Route::post('/order/{orderId}/to2', [OrderController2::class, 'to2']);
+    Route::get('/order/{orderId}/first_meet', [OrderController2::class, 'uploadMeetingReport']);
+    Route::post('/order/{orderId}/first_meet', [OrderController2::class, 'storeMeetingReport']);
+    
+    Route::get('/order/{orderId}/to3', [OrderController3::class, 'to3']);
+    Route::get('/order/{orderId}/down_payment', [OrderController3::class, 'downPayment']);
+    Route::post('/order/{orderId}/down_payment', [OrderController3::class, 'storeDownPayment']);
+    Route::get('/order/{orderId}/invoice/down_payment', [OrderController3::class, 'invoiceDownPayment']);
+    Route::post('/order/{orderId}/invoice/down_payment', [OrderController3::class, 'storeInvoiceDownPayment']);
+
+    Route::get('/order/{orderId}/to4', [OrderController4::class, 'to4']);
+
     Route::get('/order/report', [ReportController::class, 'index']);
     Route::get('/order/report/upload', [ReportController::class, 'upload']);
     Route::post('/order/report/upload', [ReportController::class, 'store']);

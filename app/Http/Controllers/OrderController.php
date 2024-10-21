@@ -3,36 +3,73 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
-use App\Models\OrderDetail;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
     public function index()
     {
-        $orders = Order::with(['package', 'customer'])->get();
+        $orders = Order::with(['customer', 'statusOrder'])->with('detailServicePackage', function ($detail) {
+            $detail->with('package', function ($package) {
+                $package->with(['packageCategory']);
+            });
+        })->orderBy('updated_at', 'DESC')->get();
+
         return view('order.index', [
             'title' => 'Order',
             'page' => 'order',
+            'subpage1' => 'order',
             'orders' => $orders,
         ]);
     }
 
-    public function detail($orderId)
+    public function detail($uuid)
     {
-        $order = Order::find($orderId);
-        $orders = OrderDetail::join('products', 'order_details.product_id', '=', 'products.id')
-            ->where(['order_id' => $order->id])
-            ->select('order_details.*', 'products.price', DB::raw('order_details.quantity * products.price as total_price'))
-            ->with(['order', 'product'])
-            ->get();
-        // dd($orders);
-        return view('order.detail', [
-            'title' => 'Order Detail',
-            'page' => 'order',
-            'orders' => $orders,
-        ]);
+        $order = Order::where(['uuid' => $uuid])->first();
+        if (!$order) {
+            return redirect('/order/list')->withErrors([
+                'message' => 'Order not found',
+            ]);
+        }
+        $order = Order::where(['uuid' => $uuid])->with('detailServicePackage', function ($detail) {
+            $detail->with(['package']);
+        })->with(['statusOrder', 'customer'])->first();
+
+        $order['wedding_date'] = Carbon::parse($order->wedding_date)->translatedFormat('d F Y');
+        $package = $order->detailServicePackage->package;
+
+        if ($order->status_order_id == 1) {
+            return view('order.detail.1', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'package' => $package,
+            ]);
+        }
+
+        else if ($order->status_order_id == 2) {
+            return view('order.detail.2', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'package' => $package,
+            ]);
+        }
+
+        else if ($order->status_order_id == 3) {
+            return view('order.detail.3', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'package' => $package,
+            ]);
+        }
+
+        return response()->json($order);
     }
 
     public function delete($orderId)

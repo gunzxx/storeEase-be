@@ -1,0 +1,11 @@
+.content-header{
+    display: flex;
+    flex-direction: row !important;
+    gap: 20px;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+.content-header a{
+    color: #000;
+}

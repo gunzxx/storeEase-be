@@ -7,10 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Document extends Model implements HasMedia
+class Invoice extends Model implements HasMedia
 {
     use HasFactory, InteractsWithMedia;
-
+    
     protected $guarded = ['id'];
 
     public function order(){
@@ -20,12 +20,12 @@ class Document extends Model implements HasMedia
     public function registerMediaCollections(): void
     {
         $this
-            ->addMediaCollection('first_meet')
+            ->addMediaCollection('down_payment')
             ->acceptsMimeTypes(['application/pdf'])
             ->singleFile();
 
         $this
-            ->addMediaCollection('down_payment')
+            ->addMediaCollection('final_payment')
             ->acceptsMimeTypes(['application/pdf'])
             ->singleFile();
     }

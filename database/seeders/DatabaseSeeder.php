@@ -13,8 +13,10 @@ use App\Models\Package;
 use App\Models\PackageCategory;
 use App\Models\Service;
 use App\Models\ServiceCategory;
+use App\Models\StatusOrder;
 use App\Models\Vendor;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Date;
 use Ramsey\Uuid\Uuid;
 
 class DatabaseSeeder extends Seeder
@@ -30,8 +32,8 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
         Admin::create([
-            'name' => 'Admin 1',
-            'email' => 'admin@storease.id',
+            'name' => 'Admin 2',
+            'email' => 'admin2@storease.id',
             'password' => bcrypt('password'),
         ]);
         
@@ -126,50 +128,52 @@ class DatabaseSeeder extends Seeder
             'service_id' => 1,
             'package_id' => 1,
         ]);
+        DetailServicePackage::create([
+            'service_id' => 2,
+            'package_id' => 2,
+        ]);
+
+        StatusOrder::create([
+            'name' => 'Penentuan Jadwal Rapat Perdana',
+        ]);
+        StatusOrder::create([
+            'name' => 'Rapat perdana',
+        ]);
+        StatusOrder::create([
+            'name' => 'Pembayaran awal',
+        ]);
+        StatusOrder::create([
+            'name' => 'Persiapan awal',
+        ]);
+        StatusOrder::create([
+            'name' => 'Pembayaran akhir',
+        ]);
+        StatusOrder::create([
+            'name' => 'Persiapan akhir',
+        ]);
+        StatusOrder::create([
+            'name' => 'Hari pernikahan',
+        ]);
+        StatusOrder::create([
+            'name' => 'Laporan akhir',
+        ]);
+        StatusOrder::create([
+            'name' => 'Selesai',
+        ]);
 
         Order::create([
             'uuid' => Uuid::uuid4(),
-            'package_id' => 1,
+            'wedding_date' => '2024-10-24',
+            'detail_service_package_id' => 1,
             'customer_id' => 1,
-            'status' => 'paid',
+            'status_order_id' => 1,
         ]);
         Order::create([
             'uuid' => Uuid::uuid4(),
-            'package_id' => 1,
+            'wedding_date' => '2024-10-24',
+            'detail_service_package_id' => 2,
             'customer_id' => 2,
-            'status' => 'paid',
+            'status_order_id' => 1,
         ]);
-
-        // Order::create([
-        //     'uuid' => Uuid::uuid4(),
-        //     'vendor_id' => 1,
-        //     'customer_id' => 1,
-        //     'total_price' => 100000,
-        // ]);
-
-        // Order::create([
-        //     'uuid' => Uuid::uuid4(),
-        //     'vendor_id' => 2,
-        //     'customer_id' => 2,
-        //     'total_price' => 80000,
-        // ]);
-
-        // OrderDetail::create([
-        //     'quantity' => 4,
-        //     'service_id' => 1,
-        //     'order_id' => 1,
-        // ]);
-
-        // OrderDetail::create([
-        //     'quantity' => 3,
-        //     'service_id' => 2,
-        //     'order_id' => 1,
-        // ]);
-
-        // OrderDetail::create([
-        //     'quantity' => 4,
-        //     'service_id' => 2,
-        //     'order_id' => 2,
-        // ]);
     }
 }

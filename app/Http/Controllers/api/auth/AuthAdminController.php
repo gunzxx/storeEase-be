@@ -13,7 +13,7 @@ class AuthAdminController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:admins,email',
             'password' => 'required|min:5',
         ]);
 

@@ -35,6 +35,7 @@
 
     <script src="/ckeditor/ckeditor.js"></script>
     <link rel="stylesheet" href="/style/admin/table.css">
+    <link rel="stylesheet" href="/style/admin/style.css">
     <script src="/js/cookie.js"></script>
     <style>
         .logout:hover * {

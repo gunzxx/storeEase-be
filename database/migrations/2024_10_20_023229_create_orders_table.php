@@ -15,9 +15,11 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid');
+            $table->date('wedding_date');
+            $table->timestamp('first_meet_date')->nullable();
             $table->foreignId('customer_id')->references('id')->on('customers')->onDelete('cascade');
-            $table->foreignId('package_id')->references('id')->on('packages')->onDelete('cascade');
-            $table->enum('status', ['unpaid', 'paid', 'waiting', 'send', 'delivered'])->default('unpaid');
+            $table->foreignId('detail_service_package_id')->references('id')->on('detail_service_packages')->onDelete('cascade');
+            $table->foreignId('status_order_id')->default(1)->references('id')->on('status_orders')->onDelete('cascade');
             $table->timestamps();
         });
     }

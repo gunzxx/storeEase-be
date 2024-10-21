@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('documents', function (Blueprint $table) {
+        Schema::create('job_desks', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('type');
+            $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
+            $table->integer('required_jobs');
+            $table->integer('finished_jobs');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('documents');
+        Schema::dropIfExists('job_desks');
     }
 };

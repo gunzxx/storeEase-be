@@ -13,7 +13,7 @@ class AuthCustomerController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:customers,email',
             'address' => 'required|min:5',
             'password' => 'required|min:5',
             'phone' => 'required',

@@ -13,7 +13,7 @@ class AuthVendorController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|min:3',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:vendors,email',
             'address' => 'required|min:5',
             'password' => 'required|min:5',
             'phone' => 'required',
@@ -25,7 +25,7 @@ class AuthVendorController extends Controller
             ], 422);
         }
 
-        $admin = Vendor::create([
+        $vendor = Vendor::create([
             'name' => $request->name,
             'email' => $request->email,
             'address' => $request->address,
@@ -35,7 +35,7 @@ class AuthVendorController extends Controller
 
         return response()->json([
             'message' => 'register success',
-            'data' => $admin,
+            'data' => $vendor,
         ], 201);
     }
 

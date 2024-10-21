@@ -11,11 +11,33 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
-    public function package(){
-        return $this->belongsTo(Package::class);
+    public function detailServicePackage()
+    {
+        return $this->belongsTo(DetailServicePackage::class);
     }
 
-    public function customer(){
+    public function customer()
+    {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function statusOrder()
+    {
+        return $this->belongsTo(StatusOrder::class);
+    }
+
+    public function document()
+    {
+        return $this->hasMany(Document::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasMany(Invoice::class);
+    }
+
+    public function jobDesk()
+    {
+        return $this->hasMany(JobDesk::class);
     }
 }
