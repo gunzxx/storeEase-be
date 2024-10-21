@@ -66,7 +66,7 @@
                 </div>
             </div>
             @if ($order->document->count() > 0)
-                <div class="order-document">
+                <div class="order-file order-document">
                     <table>
                         <thead>
                             <tr>
