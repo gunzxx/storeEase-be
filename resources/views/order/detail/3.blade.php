@@ -116,7 +116,7 @@
                                     <td class="action">
                                         @foreach ($invoice->media as $media)
                                             <a target="_blank" href="{{ $media->getUrl() }}">lihat</a>
-                                            <a href="/order/{{ $order->uuid }}/invoice/{{ $media->collection_name }}">perbarui</a>
+                                            {{-- <a href="/order/{{ $order->uuid }}/invoice/{{ $media->collection_name }}">perbarui</a> --}}
                                         @endforeach
                                     </td>
                                 </tr>

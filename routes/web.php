@@ -11,11 +11,13 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\OrderController2;
 use App\Http\Controllers\OrderController3;
 use App\Http\Controllers\OrderController4;
+use App\Http\Controllers\OrderController5;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ServiceCategoryController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\VendorController;
 use Illuminate\Support\Facades\Route;
 
@@ -89,11 +91,19 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
     Route::get('/order/{orderId}/document/{documentId}', [DocumentController::class, 'edit']);
     Route::post('/order/{orderId}/document/{documentId}', [DocumentController::class, 'update']);
 
-    Route::get('/order/report', [ReportController::class, 'index']);
-    Route::get('/order/report/upload', [ReportController::class, 'upload']);
-    Route::post('/order/report/upload', [ReportController::class, 'store']);
-    Route::get('/order/report/{id}/edit', [ReportController::class, 'edit']);
-    Route::post('/order/report/{id}/edit', [ReportController::class, 'update']);
+    Route::get('/order/{uuid}/to5', [OrderController5::class, 'to5']);
+    Route::get('/order/{orderId}/final_payment', [OrderController5::class, 'finalPayment']);
+    Route::post('/order/{orderId}/final_payment', [OrderController5::class, 'storeFinalPayment']);
+    Route::get('/order/{orderId}/invoice/final_payment', [OrderController5::class, 'invoiceFinalPayment']);
+    Route::post('/order/{orderId}/invoice/final_payment', [OrderController5::class, 'storeInvoiceFinalPayment']);
+
+    Route::get('/tes', [TestController::class, 'test']);
+
+    // Route::get('/order/report', [ReportController::class, 'index']);
+    // Route::get('/order/report/upload', [ReportController::class, 'upload']);
+    // Route::post('/order/report/upload', [ReportController::class, 'store']);
+    // Route::get('/order/report/{id}/edit', [ReportController::class, 'edit']);
+    // Route::post('/order/report/{id}/edit', [ReportController::class, 'update']);
 
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();

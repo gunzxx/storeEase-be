@@ -166,8 +166,9 @@
             <span class="order-status">
                 {{ $order->statusOrder->name }}
             </span>
-            <a href="/order/{{ $order->uuid }}/job-desk/{{ $jobDesk->id }}" class="order-action">Buat Daftar Kerja Persiapan Awal Untuk Monitor</a>
-            <a href="/order/{{ $order->uuid }}/to5" class="next-button">Lanjut ke tahap PEMBAYARAN AKHIR</a>
+            <a href="/order/{{ $order->uuid }}/final_payment" class="order-action">Unggah File Invoice Final Payment</a>
+            <a href="/order/{{ $order->uuid }}/invoice/final_payment" class="order-action">Unggah Bukti Transaksi</a>
+            <a href="/order/{{ $order->uuid }}/to6" class="next-button">Lanjut ke tahap PERSIAPAN AKHIR</a>
         </div>
     </div>
 @endsection

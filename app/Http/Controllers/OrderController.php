@@ -82,8 +82,19 @@ class OrderController extends Controller
                 'jobDesk' => $jobDesks,
                 'package' => $package,
             ]);
-        } else if ($order->status_order_id == 4) {
+        } 
+        else if ($order->status_order_id == 4) {
             return view('order.detail.4', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'jobDesk' => $jobDesks,
+                'package' => $package,
+            ]);
+        }
+        else if ($order->status_order_id == 5) {
+            return view('order.detail.5', [
                 'title' => $order->detailServicePackage->package->name,
                 'page' => 'order',
                 'subpage1' => 'order',
