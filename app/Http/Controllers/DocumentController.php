@@ -17,7 +17,7 @@ class DocumentController extends Controller
         }
 
         return view('document.upload', [
-            'title' => 'Tambah Dokumen',
+            'title' => 'Unggah Dokumen',
             'page' => 'order',
             'order' => $order,
             'subpage1' => 'report',

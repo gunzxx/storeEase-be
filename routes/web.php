@@ -12,6 +12,10 @@ use App\Http\Controllers\OrderController2;
 use App\Http\Controllers\OrderController3;
 use App\Http\Controllers\OrderController4;
 use App\Http\Controllers\OrderController5;
+use App\Http\Controllers\OrderController6;
+use App\Http\Controllers\OrderController7;
+use App\Http\Controllers\OrderController8;
+use App\Http\Controllers\OrderController9;
 use App\Http\Controllers\PackageCategoryController;
 use App\Http\Controllers\PackageController;
 use App\Http\Controllers\ReportController;
@@ -96,6 +100,14 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
     Route::post('/order/{orderId}/final_payment', [OrderController5::class, 'storeFinalPayment']);
     Route::get('/order/{orderId}/invoice/final_payment', [OrderController5::class, 'invoiceFinalPayment']);
     Route::post('/order/{orderId}/invoice/final_payment', [OrderController5::class, 'storeInvoiceFinalPayment']);
+
+    Route::get('/order/{uuid}/to6', [OrderController6::class, 'to6']);
+
+    Route::get('/order/{uuid}/to7', [OrderController7::class, 'to7']);
+
+    Route::get('/order/{uuid}/to8', [OrderController8::class, 'to8']);
+
+    Route::get('/order/{uuid}/to9', [OrderController9::class, 'to9']);
 
     Route::get('/tes', [TestController::class, 'test']);
 

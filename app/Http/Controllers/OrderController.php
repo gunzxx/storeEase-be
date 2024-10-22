@@ -103,7 +103,50 @@ class OrderController extends Controller
                 'package' => $package,
             ]);
         }
+        else if ($order->status_order_id == 6) {
+            return view('order.detail.6', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'jobDesk' => $jobDesks,
+                'package' => $package,
+            ]);
+        }
+        else if ($order->status_order_id == 7) {
+            return view('order.detail.7', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'jobDesk' => $jobDesks,
+                'package' => $package,
+            ]);
+        }
+        else if ($order->status_order_id == 8) {
+            return view('order.detail.8', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'jobDesk' => $jobDesks,
+                'package' => $package,
+            ]);
+        }
+        else if ($order->status_order_id == 9) {
+            return view('order.detail.9', [
+                'title' => $order->detailServicePackage->package->name,
+                'page' => 'order',
+                'subpage1' => 'order',
+                'order' => $order,
+                'jobDesk' => $jobDesks,
+                'package' => $package,
+            ]);
+        }
 
+        return response()->json([
+            'message' => 'status tidak valid',
+        ]);
         return response()->json($order);
     }
 
