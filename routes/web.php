@@ -85,6 +85,9 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
     Route::post('/order/{orderId}/job-desk/{jobDeskId}/job-list/{jobListId}', [JobListController::class, 'updateName']);
 
     Route::get('/order/{orderId}/new-document', [DocumentController::class, 'create']);
+    Route::post('/order/{orderId}/new-document', [DocumentController::class, 'store']);
+    Route::get('/order/{orderId}/document/{documentId}', [DocumentController::class, 'edit']);
+    Route::post('/order/{orderId}/document/{documentId}', [DocumentController::class, 'update']);
 
     Route::get('/order/report', [ReportController::class, 'index']);
     Route::get('/order/report/upload', [ReportController::class, 'upload']);

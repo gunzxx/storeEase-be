@@ -17,7 +17,7 @@
         <div class="form-group">
             <label for="name">Nama</label>
             <div class="form-input">
-                <input required name="name" type="text" id="name" placeholder="Name" value="{{ old('name') }}">
+                <input autofocus required name="name" type="text" id="name" placeholder="Name" value="{{ old('name') }}">
                 @error('name')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
