@@ -15,8 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->foreignId('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->integer('required_jobs');
-            $table->integer('finished_jobs');
             $table->timestamps();
         });
     }

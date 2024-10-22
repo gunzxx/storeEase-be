@@ -23,11 +23,11 @@ class DetailServicePackageController extends Controller
                 $package['preview_url'] = $package->getMedia('preview_img')->map(function ($media) {
                     return $media->getUrl();
                 });
-                
+
                 unset($package['media']);
                 return $package;
             });
-            
+
             return $categoryPackages;
         });
 
@@ -39,18 +39,18 @@ class DetailServicePackageController extends Controller
 
     public function single($id)
     {
-        if(!$package = Package::with(['media', 'packageCategory'])->find($id)){
+        if (!$package = Package::with(['media', 'packageCategory'])->find($id)) {
             return response()->json([
                 'message' => 'package not found',
-            ],404);
+            ], 404);
         }
 
-        $url = $package->getMedia('preview_img')->map(function($media){
+        $url = $package->getMedia('preview_img')->map(function ($media) {
             return $media->getUrl();
         });
         unset($package['media']);
         $package['preview_url'] = $url;
-        
+
         return response()->json([
             'data' => $package,
             'message' => 'success',

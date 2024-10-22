@@ -77,7 +77,7 @@ class PackageCategoryController extends Controller
 
         return redirect('/package-category')->with([
             'success' => 'Data berhasil diupdate',
-        ]);;
+        ]);
     }
 
     public function delete($id)

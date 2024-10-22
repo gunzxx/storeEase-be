@@ -192,13 +192,13 @@
                                         <p>Order List</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                {{-- <li class="nav-item">
                                     <a href="/order/report" class="nav-link {{ $subpage1 == 'report' ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <i class="nav-icon fas fa-file"></i>
                                         <p>Report</p>
                                     </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 

@@ -11,9 +11,13 @@ class CustomerProfileController extends Controller
 {
     public function detail()
     {
-        $id = auth()->user()->id;
-        $customer = Customer::find($id);
-        $customer['profile_img'] = $customer->getFirstMediaUrl('profile_img') == "" ? env('APP_URL', 'https://be.storease.id')."/img/profile/default.png" : $customer->getFirstMediaUrl('profile_img');
+        if (!$customer = Customer::find(auth()->user()->id)) {
+            return response()->json([
+                'message' => 'user not found',
+            ], 404);
+        }
+
+        $customer['profile_img'] = $customer->getFirstMediaUrl('profile_img') == "" ? env('APP_URL', 'https://be.storease.id') . "/img/profile/default.png" : $customer->getFirstMediaUrl('profile_img');
 
         return response()->json([
             'data' => $customer->only(['name', 'email', 'address', 'phone', 'profile_img']),
@@ -32,7 +36,7 @@ class CustomerProfileController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'data invalid',
-            ]);
+            ], 400);
         }
 
         if (!$customer = Customer::find(auth()->user()->id)) {
@@ -52,7 +56,7 @@ class CustomerProfileController extends Controller
                 }
                 return response()->json(['message' => $validator2->errors()->first()], 400);
             }
-            
+
             $customer->addMediaFromRequest("profile_img")->toMediaCollection("profile_img");
             $customer = Customer::find($customer->id);
 

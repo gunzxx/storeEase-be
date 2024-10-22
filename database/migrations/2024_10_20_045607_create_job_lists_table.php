@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('job_lists', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->boolean('finished');
+            $table->boolean('finished')->default(false);
+            $table->foreignId('job_desk_id')->references('id')->on('job_desks')->onDelete('cascade');
             $table->timestamps();
         });
     }

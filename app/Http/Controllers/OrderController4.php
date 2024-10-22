@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JobDesk;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -34,6 +35,11 @@ class OrderController4 extends Controller
                 'document' => 'Harap unggah Bukti Transaksi'
             ]);
         }
+
+        JobDesk::create([
+            'name' => 'Persiapan Awal',
+            'order_id' => $order->id,
+        ]);
 
         $order->update([
             'status_order_id' => 4,

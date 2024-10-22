@@ -41,7 +41,7 @@ class ServiceCategoryController extends Controller
 
         return redirect('/category')->with([
             'success' => 'Data berhasil ditambahkan',
-        ]);;
+        ]);
     }
 
     public function edit($categoryId)

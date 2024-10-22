@@ -6,6 +6,9 @@
 
 @section('content')
     <div class="content-header">
+        <a href="/order/{{ $order->uuid }}/detail">
+            <i class="nav-icon fas fa-arrow-left"></i>
+        </a>
         <h1>{{ $title ?? 'Admin Dashboard' }}</h1>
     </div>
 
