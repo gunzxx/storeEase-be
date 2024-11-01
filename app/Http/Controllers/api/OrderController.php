@@ -25,10 +25,10 @@ class OrderController extends Controller
     {
         if (!$order = Order::where(['id' => $id, 'customer_id' => auth()->user()->id])
             ->with(['customer', 'detailServicePackage'])
-            ->with('document', function($document){
+            ->with('document', function ($document) {
                 $document->with('media');
             })
-            ->with('jobDesk', function($document){
+            ->with('jobDesk', function ($document) {
                 $document->with('jobList');
             })
             ->first()) {
@@ -53,14 +53,20 @@ class OrderController extends Controller
     public function category(Request $request)
     {
         if ($request->status_order_id) {
-            $orders = Order::where(['status_order_id' => $request->status_order_id])
+            $orders = Order::where([
+                    'status_order_id' => $request->status_order_id,
+                    'customer_id' => auth()->user()->id,
+                ])
                 ->with('detailServicePackage', function ($detailServicePackage) {
                     $detailServicePackage->with('package');
                 })
                 ->with('statusOrder')
                 ->get();
         } else {
-            $orders = Order::with(['statusOrder'])
+            $orders = Order::where([
+                'customer_id' => auth()->user()->id,
+            ])
+            ->with(['statusOrder'])
                 ->with('detailServicePackage', function ($detailServicePackage) {
                     $detailServicePackage->with('package', function ($package) {
                         $package->with('media');
