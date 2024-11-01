@@ -115,6 +115,7 @@ class PackageController extends Controller
         $package->update([
             'name' => $request->name,
             'price' => $request->price,
+            'description' => $request->description,
             'detail' => $request->detail,
             'package_category_id' => $request->packageCategory,
         ]);

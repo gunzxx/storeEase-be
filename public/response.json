@@ -1,0 +1,151 @@
+[
+    [
+        {
+            "nama_api_tipe_ini_cuma_keterangan": "/api/order - POST",
+            "header": {
+                "Authorization": "Bearer token"
+            }
+        },
+        {
+            "body": {
+                "package_id": 1,
+                "wedding_date": "20-Okt-2024"
+            }
+        },
+        {
+            "Response": {
+                "message": "order created",
+                "error": false
+            }
+        }
+    ],
+    [
+        {
+            "nama_api_tipe_ini_cuma_keterangan": "/api/order - GET",
+            "header": {
+                "Authorization": "Bearer token"
+            }
+        },
+        {
+            "body": [
+                {
+                    "order_id": 1,
+                    "package_id": 1,
+                    "customer_id": 3,
+                    "wedding_date": "20-Oktober-2024",
+                    "status_id": 100,
+                    "price": 1000000,
+                    "desription": null,
+                    "date_meet_1": null,
+                    "created_at": "11-Oktober-2024, 12.00.00",
+                    "updated_at": "12-Oktober-2024, 10.00.00",
+                    "package_image_thumnail": "https://be.storease.id/package_image.png"
+                },
+                {
+                    "order_id": 2,
+                    "package_id": 1,
+                    "customer_id": 3,
+                    "wedding_date": "20-Oktober-2024",
+                    "status_id": 200,
+                    "price": 1000000,
+                    "desription": null,
+                    "date_meet_1": "13-Oktober-2024",
+                    "created_at": "11-Oktober-2024, 12.00.00",
+                    "updated_at": "12-Oktober-2024, 10.00.00",
+                    "package_image_thumnail": "https://be.storease.id/package_image.png"
+                }
+            ]
+        },
+        {
+            "Response": {
+                "message": "success get order list",
+                "error": false
+            }
+        }
+    ],
+    [
+        {
+            "nama_api_tipe_ini_cuma_keterangan": "/api/order/2 - GET",
+            "header": {
+                "Authorization": "Bearer token"
+            }
+        },
+        {
+            "body": {
+                "order_id": 2,
+                "package_data": {
+                    "id": 2,
+                    "name": "Paket Akad Nikah Hemat Lengkap",
+                    "price": "14000000.00",
+                    "description": "<p>1. Prasmanan 100 Pax, Terdiri Dari :</p><p>a. Nasi, Pilih Dua :</p><p>- Nasi Putih</p><p>- Nasi Goreng Jawa (Best Seller 1)</p><p>- Nasi Goreng XO (Best Seller 2)</p><p>- Nasi Goreng Tomyam</p><p>b. Soup, Pilih Salah Satu :</p><p>- Soup Manten &nbsp;(Best Seller 1)</p><p>c. Ayam, Pilih Salah Satu :</p><p>- Ayam Cabai Hijau</p><p>- Ayam Balado</p><p>- Ayam Blackpaper</p><p>d. Ikan, Pilih Salah Satu :</p><p>- Ikan Dori Fillet Asam Manis (Best Seller 1)</p><p>- Ikan Goreng Saus Lemon</p><p>- Ikan Goreng Saus Padang</p><p>- Ikan Goreng Saus Thai</p><p>- Ikan Goreng Cabai Hijau</p><p>e. Salad, Pilih Salah Satu :</p><p>- Asinan Sayuran (Best Seller 1)</p><p>- Salad Bangkok (Best Seller 2)</p><p>salad buah</p><p>2. Rias Busana Pengantin Pria &amp; Wanita</p><p>3. Rias Busana Untuk 4 Orang Tua</p><p>4. Dekorasi</p><p>a. Meja Akad</p><p>b. Kursi Akad 6 Pcs</p><p>c. Backdrop Akad Nikah</p><p>d. 1 Meja Tamu</p><p>e. 1 Buku Tamu</p><p>5. Dokumentasi</p><p>a. Foto dan Video Shooting</p><p>b. 1 Album Kolase Eksklusif Uk. 20 X 30 10 Sheet (20 Hal)</p><p>c. 1 Flasdisk Isi File Foto &amp; Video</p><p>d. Video Klip 1 Menit untuk di Upload ke Sosial Media (Instagram, Facebook, dll)</p>",
+                    "package_category_id": "1",
+                    "created_at": "2024-10-21T10:57:04.000000Z",
+                    "updated_at": "2024-10-21T10:57:04.000000Z",
+                    "preview_url": [],
+                    "package_category": {
+                        "id": 1,
+                        "name": "Gold",
+                        "created_at": "2024-10-21T10:57:04.000000Z",
+                        "updated_at": "2024-10-21T10:57:04.000000Z"
+                    }
+                },
+                "customer_data": {
+                    "name": "Arfan Zainuri",
+                    "email": "arfan003@gmail.com",
+                    "address": "Jember, Jawa Timur",
+                    "phone": "+6284335667",
+                    "profile_img": "https://be.storease.id/img/profile/default.png"
+                },
+                "wedding_date": "20-Oktober-2024",
+                "status_id": 200,
+                "price": 1000000,
+                "desription": null,
+                "date_meet_1": "13-Oktober-2024",
+                "created_at": "11-Oktober-2024, 12.00.00",
+                "updated_at": "12-Oktober-2024, 10.00.00",
+                "documents":[
+                    {
+                        "document_id":1,
+                        "title":"Notulensi Rapat Perdana Pak Arfan",
+                        "category":"Notulensi Rapat Perdana",
+                        "url":"https://be.storease.id/document/1/notulensirapatpakarfan.pdf"
+                    },
+                    {
+                        "document_id":2,
+                        "title":"Rudown acara Pak Arfan",
+                        "category":"Rundown",
+                        "url":"https://be.storease.id/document/1/rundownpakarfan.pdf"
+                    }
+                ],
+                "monitor_data":[
+                    {
+                        "id":1,
+                        "monitor_title":"Persiapan Awal",
+                        "data":[
+                            {
+                                "id_monitor_detail":1,
+                                "title":"proposal kerja sama dengan vendor",
+                                "status_id":1,
+                                "created_at":"12-Oktober-2024, 13.00.00",
+                                "updated_at":"12-Oktober-2024, 15.00.00"
+                            },
+                            {
+                                "id_monitor_detail":2,
+                                "title":"proposal kerja sama dengan vendor",
+                                "status_id":0,
+                                "created_at":"12-Oktober-2024, 13.10.00",
+                                "updated_at":"12-Oktober-2024, 13.10.00"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "Response": {
+                "message": "success get order detail",
+                "error": false
+            }
+        }
+    ]
+]
