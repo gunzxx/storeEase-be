@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\DetailServicePackage;
 use App\Models\Order;
 use App\Models\Package;
 use Illuminate\Http\Request;
@@ -113,7 +114,7 @@ class OrderController extends Controller
             ], 400);
         }
 
-        if (!Package::find($request->package_id)) {
+        if (!DetailServicePackage::find($request->package_id)) {
             return response()->json([
                 'message' => 'id paket tidak valid',
             ], 400);
