@@ -80,9 +80,18 @@ class OrderController extends Controller
             $order['package'] = $order->detailServicePackage->package;
             $order['thumbnail'] = $order->detailServicePackage->package->getFirstMediaUrl('preview_img') != "" ? $order->detailServicePackage->package->getFirstMediaUrl('preview_img') : url('/img/package/default.png');
             $order['service'] = $order->detailServicePackage->service;
+            $order['package_id'] = $order->detailServicePackage->package_id;
+
+            $order->detailServicePackage->package['preview_img'] = $order->detailServicePackage->package->getMedia()->map(function($media){
+                $media->getUrl();
+            });
+            unset($order->detailServicePackage->package['media']);
             unset($order->detailServicePackage);
             unset($order->statusOrder);
         });
+
+        $orders = $orders->toArray();
+        ksort($orders);
 
         return response()->json([
             'data' => $orders,
