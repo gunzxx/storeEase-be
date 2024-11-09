@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\Package;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Ramsey\Uuid\Uuid;
@@ -109,6 +110,12 @@ class OrderController extends Controller
         if ($validator->fails()) {
             return response()->json([
                 'message' => 'Data invalid',
+            ], 400);
+        }
+
+        if (!$package= Package::find($request->package_id)) {
+            return response()->json([
+                'message' => 'id paket tidak valid',
             ], 400);
         }
 
