@@ -113,7 +113,7 @@ class OrderController extends Controller
             ], 400);
         }
 
-        if (!$package= Package::find($request->package_id)) {
+        if (!Package::find($request->package_id)) {
             return response()->json([
                 'message' => 'id paket tidak valid',
             ], 400);
