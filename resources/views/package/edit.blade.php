@@ -79,6 +79,19 @@
             </div>
         </div>
         <div class="form-group">
+            <label for="service">Pilih Service</label>
+            <div class="form-input">
+                @foreach ($services as $service)
+                    <label>
+                        <input {{ in_array($service->id, $serviceCheck) ? 'checked' : '' }} type="checkbox" value="{{ $service->id }}" name="services[]" >{{ $service->name }}
+                    </label>
+                @endforeach
+                @error('services')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
+        </div>
+        <div class="form-group">
             <button>Simpan</button>
         </div>
     </form>

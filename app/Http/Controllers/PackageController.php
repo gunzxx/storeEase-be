@@ -39,8 +39,6 @@ class PackageController extends Controller
 
     public function store(Request $request)
     {
-        // $ids = [];
-        // dd($ids);
         $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|numeric',
@@ -81,14 +79,15 @@ class PackageController extends Controller
 
     public function edit($packageId)
     {
-        $package = Package::with(['media'])->find($packageId);
-        if (!$package) {
+        if (!$package = Package::with(['media', 'detailServicePackage'])->find($packageId)) {
             return redirect('/package')->withErrors([
                 'data' => 'data tidak ditemukan',
             ]);
         }
 
         $packageCategories = PackageCategory::all();
+        $services = Service::all();
+        $serviceCheck = $package->detailServicePackage->map(fn($detail) => $detail->service->id)->toArray();
 
         return view('package.edit', [
             'title' => 'Edit Package',
@@ -96,6 +95,8 @@ class PackageController extends Controller
             'subpage1' => 'package-list',
             'package' => $package,
             'packageCategories' => $packageCategories,
+            'services' => $services,
+            'serviceCheck' => $serviceCheck,
         ]);
     }
 
@@ -106,6 +107,7 @@ class PackageController extends Controller
             'price' => 'required|numeric',
             'description' => 'required',
             'packageCategory' => 'required',
+            'services' => 'required',
         ]);
 
         $package = Package::find($packageId);
@@ -114,6 +116,30 @@ class PackageController extends Controller
                 'data' => 'data tidak ditemukan',
             ]);
         }
+
+
+        $oldService = $package->detailServicePackage->map(fn($detail) => $detail->service->id)->toArray();
+        $removeServiceId = array_diff($oldService, $request->services);
+        $newServiceId = array_diff($request->services, $oldService);
+
+        foreach ($removeServiceId as $id) {
+            $detail = DetailServicePackage::where([
+                'service_id' => $id,
+                'package_id' => $package->id,
+            ])->first();
+            
+            if ($detail) {
+                $detail->delete();
+            }
+        }
+
+        foreach ($newServiceId as $id) {
+            DetailServicePackage::create([
+                'service_id' => $id,
+                'package_id' => $package->id,
+            ]);
+        }
+        // dd($removeServiceId, $newServiceId);
 
         if ($request->hasFile('preview_img')) {
             $request->validate([

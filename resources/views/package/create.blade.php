@@ -68,7 +68,7 @@
                         <input type="checkbox" value="{{ $service->id }}" name="services[]" >{{ $service->name }}
                     </label>
                 @endforeach
-                @error('service')
+                @error('services')
                     <div class="error-message">{{ $message }}</div>
                 @enderror
             </div>
