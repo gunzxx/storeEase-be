@@ -132,6 +132,10 @@ class DatabaseSeeder extends Seeder
             'service_id' => 2,
             'package_id' => 2,
         ]);
+        DetailServicePackage::create([
+            'service_id' => 3,
+            'package_id' => 2,
+        ]);
 
         StatusOrder::create([
             'name' => 'Penentuan Jadwal Rapat Perdana',

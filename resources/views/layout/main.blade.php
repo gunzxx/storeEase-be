@@ -166,6 +166,13 @@
                                         <p>Package Category</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="/package-detail" class="nav-link {{ $subpage1 == 'package-detail' ? 'active' : '' }}">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <i class="nav-icon fas fa-box"></i>
+                                        <p>Detail Service Package</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 

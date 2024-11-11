@@ -42,7 +42,7 @@
                     <th scope="col">No.</th>
                     <th scope="col">Paket</th>
                     <th scope="col">Service</th>
-                    <th class="action-col" scope="col">Aksi</th>
+                    {{-- <th class="action-col" scope="col">Aksi</th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -57,7 +57,7 @@
                         <td>
                             <p>{!! $detailServicePackage->service->name !!}</p>
                         </td>
-                        <td>
+                        {{-- <td>
                             <div class="action-container">
                                 <a href="/package-detail/{{ $detailServicePackage->id }}/edit">
                                     <i class="fas fa-edit"></i>
@@ -67,7 +67,7 @@
                                         style="color: rgb(255, 98, 98);"></i>
                                 </a>
                             </div>
-                        </td>
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>
@@ -75,7 +75,7 @@
     </div>
 @endsection
 
-@section('js')
+{{-- @section('js')
     <script>
         $('.delete-button').click((e) => {
             Swal.fire({
@@ -121,4 +121,4 @@
             })
         });
     </script>
-@endsection
+@endsection --}}

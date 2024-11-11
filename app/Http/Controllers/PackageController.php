@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DetailServicePackage;
 use App\Models\Package;
 use App\Models\PackageCategory;
+use App\Models\Service;
 use Illuminate\Http\Request;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
@@ -12,7 +14,7 @@ class PackageController extends Controller
     public function index()
     {
         $packages = Package::with(['packageCategory'])->get();
-        
+
         return view('package.index', [
             'title' => 'Package',
             'page' => 'package',
@@ -24,22 +26,27 @@ class PackageController extends Controller
     public function create()
     {
         $packageCategories = PackageCategory::all();
+        $services = Service::all();
 
         return view('package.create', [
             'title' => 'Create Package',
             'page' => 'package',
             'subpage1' => 'package-list',
             'packageCategories' => $packageCategories,
+            'services' => $services,
         ]);
     }
-    
+
     public function store(Request $request)
     {
+        // $ids = [];
+        // dd($ids);
         $request->validate([
             'name' => 'required|min:3',
             'price' => 'required|numeric',
             'description' => 'required',
             'packageCategory' => 'required',
+            'services' => 'required',
         ]);
 
         $package = Package::create([
@@ -48,8 +55,14 @@ class PackageController extends Controller
             'description' => $request->description,
             'package_category_id' => $request->packageCategory,
         ]);
-        
-        if($request->hasFile('preview_img')){
+        foreach ($request->services as $id) {
+            DetailServicePackage::create([
+                'service_id' => $id,
+                'package_id' => $package->id,
+            ]);
+        };
+
+        if ($request->hasFile('preview_img')) {
             $request->validate([
                 'preview_img.*' => 'mimes:jpeg,jpg,png',
             ]);
@@ -102,7 +115,7 @@ class PackageController extends Controller
             ]);
         }
 
-        if($request->hasFile('preview_img')){
+        if ($request->hasFile('preview_img')) {
             $request->validate([
                 'preview_img.*' => 'mimes:jpeg,jpg,png',
             ]);
@@ -140,11 +153,12 @@ class PackageController extends Controller
         ]);
     }
 
-    public function deletePreview(Request $request, $id){
-        if(!$media = Media::find($id)){
+    public function deletePreview(Request $request, $id)
+    {
+        if (!$media = Media::find($id)) {
             return response()->json([
                 "message" => "data tidak ditemukan",
-            ],404);
+            ], 404);
         }
 
         $media->delete();

@@ -52,11 +52,11 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
     Route::get('/vendor-service/{id}/edit', [ServiceController::class, 'edit']);
     Route::post('/vendor-service/{id}/edit', [ServiceController::class, 'update']);
 
-    // Route::get('/package', [PackageController::class, 'index']);
-    // Route::get('/package/create', [PackageController::class, 'create']);
-    // Route::post('/package/create', [PackageController::class, 'store']);
-    // Route::get('/package/{id}/edit', [PackageController::class, 'edit']);
-    // Route::post('/package/{id}/edit', [PackageController::class, 'update']);
+    Route::get('/package', [PackageController::class, 'index']);
+    Route::get('/package/create', [PackageController::class, 'create']);
+    Route::post('/package/create', [PackageController::class, 'store']);
+    Route::get('/package/{id}/edit', [PackageController::class, 'edit']);
+    Route::post('/package/{id}/edit', [PackageController::class, 'update']);
 
     Route::get('/package-category', [PackageCategoryController::class, 'index']);
     Route::get('/package-category/create', [PackageCategoryController::class, 'create']);
@@ -64,7 +64,7 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
     Route::get('/package-category/{id}/edit', [PackageCategoryController::class, 'edit']);
     Route::post('/package-category/{id}/edit', [PackageCategoryController::class, 'update']);
 
-    // Route::get('/package-detail', [DetailServicePackageController::class, 'index']);
+    Route::get('/package-detail', [DetailServicePackageController::class, 'index']);
     // Route::get('/package-detail/create', [DetailServicePackageController::class, 'create']);
     // Route::post('/package-detail/create', [DetailServicePackageController::class, 'store']);
     // Route::get('/package-detail/{id}/edit', [DetailServicePackageController::class, 'edit']);
