@@ -164,14 +164,14 @@ class DatabaseSeeder extends Seeder
         Order::create([
             'uuid' => Uuid::uuid4(),
             'wedding_date' => '2024-10-24',
-            'detail_service_package_id' => 1,
+            'package_id' => 1,
             'customer_id' => 1,
             'status_order_id' => 1,
         ]);
         Order::create([
             'uuid' => Uuid::uuid4(),
             'wedding_date' => '2024-10-24',
-            'detail_service_package_id' => 2,
+            'package_id' => 2,
             'customer_id' => 2,
             'status_order_id' => 1,
         ]);

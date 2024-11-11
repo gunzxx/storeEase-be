@@ -48,10 +48,10 @@
                             <p>{{ $key + 1 }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->detailServicePackage->package->name }}</p>
+                            <p>{{ $order->package->name }}</p>
                         </td>
                         <td>
-                            <p>{{ $order->detailServicePackage->package->packageCategory->name }}</p>
+                            <p>{{ $order->package->packageCategory->name }}</p>
                         </td>
                         <td>
                             <p>{{ $order->customer->name }}</p>
@@ -64,10 +64,6 @@
                                 <a href="/order/{{ $order->uuid }}/detail">
                                     detail <i class="fas fa-eye"></i>
                                 </a>
-                                {{-- <a class="delete-button">
-                                    <i data-id="{{ $order->id }}" class="fas fa-trash"
-                                        style="color: rgb(255, 98, 98);"></i>
-                                </a> --}}
                             </div>
                         </td>
                     </tr>

@@ -13,6 +13,7 @@ class Customer extends Authenticatable implements JWTSubject, HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $guarded = ['id'];
+    protected $hidden = ['id'];
 
     public function getJWTIdentifier()
     {

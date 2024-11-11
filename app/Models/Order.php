@@ -11,14 +11,14 @@ class Order extends Model
 
     protected $guarded = ['id'];
 
-    public function detailServicePackage()
+    public function package()
     {
-        return $this->belongsTo(DetailServicePackage::class);
+        return $this->belongsTo(Package::class);
     }
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->select(['id', 'name', 'email', 'address', 'phone']);
     }
 
     public function statusOrder()

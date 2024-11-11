@@ -38,7 +38,7 @@
 
     <div class="jobdesk-container">
         <div class="jobdesk-container-header">
-            <h1>{{ $order->statusOrder->name }}</h1>
+            <h1>{{ $jobDesk->name }}</h1>
             <div class="last-update">
                 <p>Terakhir Dirubah</p>
                 <p>{{ $order->updated_at->format('d M Y, H:i') }}</p>

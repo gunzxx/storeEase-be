@@ -38,7 +38,7 @@ class OrderController2 extends Controller
                 'message' => 'Order not found',
             ]);
         }
-        $package = $order->detailServicePackage->package;
+        $package = $order->package;
 
         return view('order.detail.2-upload', [
             'title' => 'Unggah Notulensi Rapat Perdana',

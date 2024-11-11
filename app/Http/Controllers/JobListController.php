@@ -17,7 +17,7 @@ class JobListController extends Controller
             ]);
         }
 
-        $jobDesk = JobDesk::where(['order_id' => $order->id])->orderBy('updated_at', 'DESC')->first();
+        $jobDesk = JobDesk::where(['order_id' => $order->id, 'id' => $jobDeskId])->orderBy('updated_at', 'DESC')->first();
 
         $jobListFinished = $jobDesk->jobList()->where('finished', true);
         $jobDesk['finished'] = $jobListFinished->count();
@@ -42,7 +42,7 @@ class JobListController extends Controller
             ]);
         }
 
-        $jobDesk = JobDesk::where(['order_id' => $order->id])->orderBy('updated_at', 'DESC')->first();
+        $jobDesk = JobDesk::where(['order_id' => $order->id, 'id' => $jobDeskId])->orderBy('updated_at', 'DESC')->first();
 
         return view('order.jobdesk.joblist-create', [
             'title' => 'Tambah Task List',

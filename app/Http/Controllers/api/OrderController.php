@@ -26,9 +26,12 @@ class OrderController extends Controller
     public function single($id)
     {
         if (!$order = Order::where(['id' => $id, 'customer_id' => auth()->user()->id])
-            ->with(['customer', 'detailServicePackage'])
+            ->with(['customer', 'package'])
             ->with('document', function ($document) {
                 $document->with('media');
+            })
+            ->with('invoice', function ($invoice) {
+                $invoice->with('media');
             })
             ->with('jobDesk', function ($document) {
                 $document->with('jobList');
@@ -39,12 +42,13 @@ class OrderController extends Controller
             ], 404);
         }
 
-        $order['status_name'] = $order->statusOrder->name;
-        $order['package'] = $order->detailServicePackage->package;
-        $order['thumbnail'] = $order->detailServicePackage->package->getFirstMediaUrl('preview_img') != "" ? $order->detailServicePackage->package->getFirstMediaUrl('preview_img') : url('/img/package/default.png');
-        $order['service'] = $order->detailServicePackage->service;
-        unset($order->detailServicePackage);
-        unset($order->statusOrder);
+        $order['thumbnail'] = $order->package->getFirstMediaUrl('preview_img') != "" ? $order->package->getFirstMediaUrl('preview_img') : url('/img/package/default.png');
+        $order['services'] = $order->package->detailServicePackage->map(fn($detail) => $detail->service);
+
+        $order->package['preview_url'] = $order->package->getMedia('preview_img')->map(fn($media) => $media->getUrl());
+
+        unset($order->package->media);
+        unset($order->package->detailServicePackage);
 
         return response()->json([
             'data' => $order,
@@ -56,44 +60,32 @@ class OrderController extends Controller
     {
         if ($request->status_order_id) {
             $orders = Order::where([
-                    'status_order_id' => $request->status_order_id,
-                    'customer_id' => auth()->user()->id,
-                ])
-                ->with('detailServicePackage', function ($detailServicePackage) {
-                    $detailServicePackage->with('package');
-                })
-                ->with('statusOrder')
+                'status_order_id' => $request->status_order_id,
+                'customer_id' => auth()->user()->id,
+            ])
+                ->with(['statusOrder', 'package'])
                 ->get();
         } else {
             $orders = Order::where([
                 'customer_id' => auth()->user()->id,
             ])
-            ->with(['statusOrder'])
-                ->with('detailServicePackage', function ($detailServicePackage) {
-                    $detailServicePackage->with('package', function ($package) {
-                        $package->with('media');
-                    });
+                ->with(['statusOrder'])
+                ->with('package', function ($package) {
+                    $package->with('media');
                 })
                 ->get();
         }
 
         $orders->map(function ($order) {
-            $order['status_name'] = $order->statusOrder->name;
-            $order['package'] = $order->detailServicePackage->package;
-            $order['thumbnail'] = $order->detailServicePackage->package->getFirstMediaUrl('preview_img') != "" ? $order->detailServicePackage->package->getFirstMediaUrl('preview_img') : url('/img/package/default.png');
-            $order['service'] = $order->detailServicePackage->service;
-            $order['package_id'] = $order->detailServicePackage->package_id;
+            $order['thumbnail'] = $order->package->getFirstMediaUrl('preview_img') != "" ? $order->package->getFirstMediaUrl('preview_img') : url('/img/package/default.png');
+            $order['services'] = $order->package->detailServicePackage->map(fn($detail)=>$detail->service);
 
-            $order->detailServicePackage->package['preview_img'] = $order->detailServicePackage->package->getMedia()->map(function($media){
+            $order->package['preview_url'] = $order->package->getMedia('preview_img')->map(function ($media) {
                 $media->getUrl();
             });
-            unset($order->detailServicePackage->package['media']);
-            unset($order->detailServicePackage);
-            unset($order->statusOrder);
+            unset($order->package->media);
+            unset($order->package->detailServicePackage);
         });
-
-        $orders = $orders->toArray();
-        ksort($orders);
 
         return response()->json([
             'data' => $orders,
@@ -123,7 +115,7 @@ class OrderController extends Controller
         $data = [
             'uuid' => Uuid::uuid4(),
             'wedding_date' => $request->wedding_date,
-            'detail_service_package_id' => $request->package_id,
+            'package_id' => $request->package_id,
             'customer_id' => auth()->user()->id,
         ];
 

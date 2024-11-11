@@ -111,12 +111,6 @@ Route::group(['middleware' => ['auth:adminweb']], function () {
 
     Route::get('/tes', [TestController::class, 'test']);
 
-    // Route::get('/order/report', [ReportController::class, 'index']);
-    // Route::get('/order/report/upload', [ReportController::class, 'upload']);
-    // Route::post('/order/report/upload', [ReportController::class, 'store']);
-    // Route::get('/order/report/{id}/edit', [ReportController::class, 'edit']);
-    // Route::post('/order/report/{id}/edit', [ReportController::class, 'update']);
-
     Route::get('/logout', function () {
         auth()->guard('adminweb')->logout();
         return redirect('/login');
