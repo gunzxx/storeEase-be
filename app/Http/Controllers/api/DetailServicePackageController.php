@@ -56,4 +56,25 @@ class DetailServicePackageController extends Controller
             'message' => 'success',
         ]);
     }
+
+    public function all()
+    {
+        $packages = Package::with(['media'])->get();
+
+        $packages->map(function ($package) {
+            $package['preview_url'] = $package->media->map(function ($media) {
+                return $media->getUrl();
+            });
+            $package['category'] = $package->packageCategory->name;
+
+            unset($package['packageCategory']);
+            unset($package['media']);
+            return $package;
+        });
+
+        return response()->json([
+            'data' => $packages,
+            'message' => 'success',
+        ]);
+    }
 }
