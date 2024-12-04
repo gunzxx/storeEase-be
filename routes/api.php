@@ -33,8 +33,8 @@ Route::middleware(['jwt-verify', 'multi-auth:vendor,admin,customer'])->group(fun
     Route::get('/homepage', [DetailServicePackageController::class, 'index']);
     Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
     
+    Route::get('/document/{order_id}', [DocumentController::class, 'index']);
 });
-Route::get('/document/{order_id}', [DocumentController::class, 'index']);
 
 Route::middleware(['jwt-verify', 'multi-auth:customer'])->group(function () {
     Route::get('/customer', [CustomerProfileController::class, 'detail']);
