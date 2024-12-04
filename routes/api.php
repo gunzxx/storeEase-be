@@ -5,6 +5,7 @@ use App\Http\Controllers\api\auth\AuthCustomerController;
 use App\Http\Controllers\api\auth\AuthVendorController;
 use App\Http\Controllers\api\CustomerProfileController;
 use App\Http\Controllers\api\DetailServicePackageController;
+use App\Http\Controllers\api\DocumentController;
 use App\Http\Controllers\api\OrderController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ServiceCategoryController;
@@ -31,7 +32,9 @@ Route::middleware(['guest'])->group(function () {
 Route::middleware(['jwt-verify', 'multi-auth:vendor,admin,customer'])->group(function () {
     Route::get('/homepage', [DetailServicePackageController::class, 'index']);
     Route::get('/package/{id}', [DetailServicePackageController::class, 'single']);
+    
 });
+Route::get('/document/{order_id}', [DocumentController::class, 'index']);
 
 Route::middleware(['jwt-verify', 'multi-auth:customer'])->group(function () {
     Route::get('/customer', [CustomerProfileController::class, 'detail']);
